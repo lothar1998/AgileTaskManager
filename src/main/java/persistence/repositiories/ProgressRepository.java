@@ -20,9 +20,10 @@ public class ProgressRepository extends AbstractRepository implements ReadReposi
             ResultSet result = statement.executeQuery();
 
 
-            ProgressEntity progressEntity = new ProgressEntity();
+            ProgressEntity progressEntity = null;
 
             if(result.next()){
+                progressEntity = new ProgressEntity();
                 progressEntity.setId(result.getInt("id"));
                 progressEntity.setName(result.getString("name"));
                 progressEntity.setDescription(result.getString("description"));
