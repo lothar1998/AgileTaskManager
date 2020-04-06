@@ -6,13 +6,14 @@ import persistence.entities.ProjectEntity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectRepository extends AbstractRepository implements CrudRepository<ProjectEntity> {
     @Override
-    public void save(ProjectEntity arg) {
+    public void save(ProjectEntity arg) throws SQLException {
         String sql = "INSERT INTO agile.projects (name, description) VALUES (?, ?)";
         dataAccessLayer.executeQuery(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -31,7 +32,7 @@ public class ProjectRepository extends AbstractRepository implements CrudReposit
     }
 
     @Override
-    public void update(ProjectEntity arg) {
+    public void update(ProjectEntity arg) throws SQLException {
         String sql = "UPDATE agile.projects SET name = ?, description = ? WHERE id = ?";
         dataAccessLayer.executeQuery(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -46,7 +47,7 @@ public class ProjectRepository extends AbstractRepository implements CrudReposit
     }
 
     @Override
-    public void delete(ProjectEntity arg) {
+    public void delete(ProjectEntity arg) throws SQLException {
         String sql = "DELETE FROM agile.projects WHERE id = ?";
         dataAccessLayer.executeQuery(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -59,7 +60,7 @@ public class ProjectRepository extends AbstractRepository implements CrudReposit
     }
 
     @Override
-    public ProjectEntity get(Integer arg) {
+    public ProjectEntity get(Integer arg) throws SQLException {
         String sql = "SELECT * FROM agile.projects WHERE id = ?";
         return dataAccessLayer.executeQuery(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -82,7 +83,7 @@ public class ProjectRepository extends AbstractRepository implements CrudReposit
     }
 
     @Override
-    public List<ProjectEntity> getAll() {
+    public List<ProjectEntity> getAll() throws SQLException {
         String sql = "SELECT * FROM agile.projects";
         return dataAccessLayer.executeQuery(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql);

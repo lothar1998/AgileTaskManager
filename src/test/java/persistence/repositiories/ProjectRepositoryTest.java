@@ -51,7 +51,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    void getTest(){
+    void getTest() throws SQLException {
         when(dataAccessLayer.executeQuery(ArgumentMatchers.<FunctionSQL<Connection, ProjectEntity>>any())).thenAnswer(invocation -> {
             FunctionSQL<Connection, ProjectEntity> arg = invocation.getArgument(0);
             return arg.apply(conn);
@@ -68,7 +68,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    void getAllTest(){
+    void getAllTest() throws SQLException {
         when(dataAccessLayer.executeQuery(ArgumentMatchers.<FunctionSQL<Connection, ProjectEntity>>any())).thenAnswer(invocation -> {
             FunctionSQL<Connection, ProjectEntity> arg = invocation.getArgument(0);
             return arg.apply(conn);

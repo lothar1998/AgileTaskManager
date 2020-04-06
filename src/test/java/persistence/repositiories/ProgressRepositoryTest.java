@@ -51,7 +51,7 @@ class ProgressRepositoryTest {
     }
 
     @Test
-    void getTest(){
+    void getTest() throws SQLException {
         when(dataAccessLayer.executeQuery(ArgumentMatchers.<FunctionSQL<Connection, ProgressEntity>>any())).then(invocationOnMock -> {
             FunctionSQL<Connection, ProgressEntity> arg = invocationOnMock.getArgument(0);
             return arg.apply(conn);
@@ -66,7 +66,7 @@ class ProgressRepositoryTest {
     }
 
     @Test
-    void getAllTest(){
+    void getAllTest() throws SQLException {
         when(dataAccessLayer.executeQuery(ArgumentMatchers.<FunctionSQL<Connection, ProgressEntity>>any())).then(invocationOnMock -> {
             FunctionSQL<Connection, ProgressEntity> arg = invocationOnMock.getArgument(0);
             return arg.apply(conn);

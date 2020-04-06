@@ -36,7 +36,7 @@ public class DataAccessLayer {
         return dataAccessLayer;
     }
 
-    public void executeQuery(ConsumerSQL<Connection> consumer){
+    public void executeQuery(ConsumerSQL<Connection> consumer) throws SQLException {
         Connection conn = null;
         try {
             synchronized (this) {
@@ -47,15 +47,16 @@ public class DataAccessLayer {
 
         } catch (SQLException ex) {
             log.warn("Cannot establish connection or execute SQL query", ex);
+            throw new SQLException(ex);
         }
         finally {
             closeConnection(conn);
         }
     }
 
-    public <R> R executeQuery(FunctionSQL<Connection, R> function){
+    public <R> R executeQuery(FunctionSQL<Connection, R> function) throws SQLException {
         Connection conn = null;
-        R result = null;
+        R result;
         try {
             synchronized (this) {
                 conn = DriverManager.getConnection(databaseURL, connectionProperties);
@@ -65,6 +66,7 @@ public class DataAccessLayer {
 
         } catch (SQLException ex) {
             log.warn("Cannot establish connection or execute SQL query", ex);
+            throw new SQLException(ex);
         }
         finally {
             closeConnection(conn);

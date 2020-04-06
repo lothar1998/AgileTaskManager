@@ -6,12 +6,13 @@ import persistence.entities.ProgressEntity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProgressRepository extends AbstractRepository implements ReadRepository<ProgressEntity> {
     @Override
-    public ProgressEntity get(Integer arg) {
+    public ProgressEntity get(Integer arg) throws SQLException {
         String sql = "SELECT * FROM agile.progresses WHERE id = ?";
         return dataAccessLayer.executeQuery(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -35,7 +36,7 @@ public class ProgressRepository extends AbstractRepository implements ReadReposi
     }
 
     @Override
-    public List<ProgressEntity> getAll() {
+    public List<ProgressEntity> getAll() throws SQLException {
         String sql = "SELECT * FROM agile.progresses";
         return dataAccessLayer.executeQuery(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql);
