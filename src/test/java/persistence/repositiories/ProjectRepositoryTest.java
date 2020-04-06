@@ -207,9 +207,6 @@ class ProjectRepositoryTest {
 
         if(resultOfUpdate.next()){
             resultOfUpdateEntity = new ProjectEntity();
-            resultOfUpdateEntity.setId(resultOfUpdate.getInt("id"));
-            resultOfUpdateEntity.setName(resultOfUpdate.getString("name"));
-            resultOfUpdateEntity.setDescription(resultOfUpdate.getString("description"));
         }
 
         statement.close();
