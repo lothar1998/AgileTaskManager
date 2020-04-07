@@ -188,7 +188,7 @@ class SprintRepositoryTest {
             resultOfUpdateEntity.setProjectId(resultOfUpdate.getInt("project_id"));
         }
 
-        statement.close();
+        resultStatement.close();
 
         assertEquals(sprintEntity, resultOfUpdateEntity);
     }
@@ -232,7 +232,7 @@ class SprintRepositoryTest {
             resultOfUpdateEntity = new SprintEntity();
         }
 
-        statement.close();
+        resultStatement.close();
 
         assertNull(resultOfUpdateEntity);
     }

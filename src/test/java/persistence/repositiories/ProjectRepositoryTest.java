@@ -166,7 +166,7 @@ class ProjectRepositoryTest {
             resultOfUpdateEntity.setDescription(resultOfUpdate.getString("description"));
         }
 
-        statement.close();
+        resultStatement.close();
 
         assertEquals(projectEntity, resultOfUpdateEntity);
     }
@@ -209,7 +209,7 @@ class ProjectRepositoryTest {
             resultOfUpdateEntity = new ProjectEntity();
         }
 
-        statement.close();
+        resultStatement.close();
 
         assertNull(resultOfUpdateEntity);
     }
