@@ -8,15 +8,19 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import persistence.*;
+import persistence.ConsumerSQL;
+import persistence.CrudRepository;
+import persistence.DataAccessLayer;
+import persistence.FunctionSQL;
 import persistence.entities.SprintEntity;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class SprintRepositoryTest {
@@ -30,29 +34,7 @@ class SprintRepositoryTest {
 
     @BeforeEach
     void connecting() throws SQLException {
-        String sql = "create table agile.projects\n" +
-                "(\n" +
-                "    id          serial primary key,\n" +
-                "    name        varchar(255),\n" +
-                "    description text\n" +
-                ")\\;\n" +
-                "\n" +
-                "insert into agile.projects\n" +
-                "values (1, 'project 1', 'project description 1')\\;" +
-                "create table agile.sprints\n" +
-                "(\n" +
-                "    id         serial primary key,\n" +
-                "    name       varchar(255),\n" +
-                "    no         integer                                not null,\n" +
-                "    project_id integer references agile.projects (id)\n" +
-                ")\\;\n" +
-                "\n" +
-                "insert into agile.sprints\n" +
-                "values (1, 'sprint 1', 1, 1)\\;" +
-                "insert into agile.sprints\n" +
-                "values (2, 'sprint 2', 2, 1)\\;";
-
-        conn = DriverManager.getConnection("jdbc:h2:mem:test;INIT=CREATE SCHEMA IF NOT EXISTS agile\\;SET SCHEMA agile\\;" + sql, "admin", "admin");
+        conn = DriverManager.getConnection("jdbc:h2:mem:test;INIT=runscript from './database_test.sql'\\;", "admin", "admin");
     }
 
     @AfterEach
@@ -204,7 +186,7 @@ class SprintRepositoryTest {
         String sql = "SELECT * FROM agile.sprints WHERE id = ?";
         PreparedStatement statement = conn.prepareStatement(sql);
 
-        statement.setInt(1,1);
+        statement.setInt(1, 2);
         ResultSet result = statement.executeQuery();
 
         SprintEntity sprintEntity = new SprintEntity();
@@ -223,7 +205,7 @@ class SprintRepositoryTest {
 
         PreparedStatement resultStatement = conn.prepareStatement(sql);
 
-        resultStatement.setInt(1, 1);
+        resultStatement.setInt(1, 2);
         ResultSet resultOfUpdate = resultStatement.executeQuery();
 
         SprintEntity resultOfUpdateEntity = null;

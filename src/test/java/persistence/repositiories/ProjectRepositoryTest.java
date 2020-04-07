@@ -16,10 +16,12 @@ import persistence.entities.ProjectEntity;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ProjectRepositoryTest {
@@ -33,16 +35,7 @@ class ProjectRepositoryTest {
 
     @BeforeEach
     void connecting() throws SQLException {
-        String sql = "create table agile.projects\n" +
-                "(\n" +
-                "    id          serial primary key,\n" +
-                "    name        varchar(255),\n" +
-                "    description text\n" +
-                ")\\;\n" +
-                "\n" +
-                "insert into agile.projects\n" +
-                "values (1, 'project 1', 'project description 1')\\;";
-        conn = DriverManager.getConnection("jdbc:h2:mem:test;INIT=CREATE SCHEMA IF NOT EXISTS agile\\;SET SCHEMA agile\\;" + sql, "admin", "admin");
+        conn = DriverManager.getConnection("jdbc:h2:mem:test;INIT=runscript from './database_test.sql'\\;", "admin", "admin");
     }
 
     @AfterEach
@@ -74,14 +67,17 @@ class ProjectRepositoryTest {
             return arg.apply(conn);
         });
 
-        List<ProjectEntity> expectedList = new ArrayList<>();
+        ProjectEntity expectedEntity1 = new ProjectEntity();
+        expectedEntity1.setId(1);
+        expectedEntity1.setName("project 1");
+        expectedEntity1.setDescription("project description 1");
 
-        ProjectEntity expectedEntity = new ProjectEntity();
-        expectedEntity.setId(1);
-        expectedEntity.setName("project 1");
-        expectedEntity.setDescription("project description 1");
+        ProjectEntity expectedEntity2 = new ProjectEntity();
+        expectedEntity2.setId(2);
+        expectedEntity2.setName("project 2");
+        expectedEntity2.setDescription("project description 2");
 
-        expectedList.add(expectedEntity);
+        List<ProjectEntity> expectedList = new ArrayList<>(Arrays.asList(expectedEntity1, expectedEntity2));
 
         List<ProjectEntity> projectEntityList = projectRepository.getAll();
 
@@ -182,7 +178,7 @@ class ProjectRepositoryTest {
         String sql = "SELECT * FROM agile.projects WHERE id = ?";
         PreparedStatement statement = conn.prepareStatement(sql);
 
-        statement.setInt(1, 1);
+        statement.setInt(1, 2);
         ResultSet result = statement.executeQuery();
 
         ProjectEntity projectEntity = new ProjectEntity();
@@ -200,7 +196,7 @@ class ProjectRepositoryTest {
 
         PreparedStatement resultStatement = conn.prepareStatement(sql);
 
-        resultStatement.setInt(1, 1);
+        resultStatement.setInt(1, 2);
         ResultSet resultOfUpdate = resultStatement.executeQuery();
 
         ProjectEntity resultOfUpdateEntity = null;

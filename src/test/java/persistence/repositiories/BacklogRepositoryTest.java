@@ -35,29 +35,7 @@ class BacklogRepositoryTest {
 
     @BeforeEach
     void connecting() throws SQLException {
-        String sql = "create table agile.projects\n" +
-                "(\n" +
-                "    id          serial primary key,\n" +
-                "    name        varchar(255),\n" +
-                "    description text\n" +
-                ")\\;\n" +
-                "\n" +
-                "insert into agile.projects\n" +
-                "values (1, 'project 1', 'project description 1')\\;\n" +
-                "\n" +
-                "create table agile.backlogs\n" +
-                "(\n" +
-                "    id          serial primary key,\n" +
-                "    description text,\n" +
-                "    project_id  integer references agile.projects (id)\n" +
-                ")\\;\n" +
-                "\n" +
-                "insert into agile.backlogs\n" +
-                "values (1, 'backlog 1 description', 1)\\;" +
-                "insert into agile.backlogs\n" +
-                "values (2, 'backlog 2 description', 1)\\;";
-
-        conn = DriverManager.getConnection("jdbc:h2:mem:test;INIT=CREATE SCHEMA IF NOT EXISTS agile\\;SET SCHEMA agile\\;" + sql, "admin", "admin");
+        conn = DriverManager.getConnection("jdbc:h2:mem:test;INIT=runscript from './database_test.sql'\\;", "admin", "admin");
     }
 
     @AfterEach
@@ -201,7 +179,7 @@ class BacklogRepositoryTest {
         String sql = "SELECT * FROM agile.backlogs WHERE id = ?";
         PreparedStatement statement = conn.prepareStatement(sql);
 
-        statement.setInt(1, 1);
+        statement.setInt(1, 2);
         ResultSet result = statement.executeQuery();
 
         BacklogEntity backlogEntity = new BacklogEntity();
@@ -218,7 +196,7 @@ class BacklogRepositoryTest {
 
         PreparedStatement resultStatement = conn.prepareStatement(sql);
 
-        resultStatement.setInt(1, 1);
+        resultStatement.setInt(1, 2);
         ResultSet resultOfUpdate = resultStatement.executeQuery();
 
         BacklogEntity resultOfUpdateEntity = null;

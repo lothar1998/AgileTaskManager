@@ -8,17 +8,21 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import persistence.*;
+import persistence.DataAccessLayer;
+import persistence.FunctionSQL;
+import persistence.ReadRepository;
 import persistence.entities.ProgressEntity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ProgressRepositoryTest {
@@ -32,17 +36,7 @@ class ProgressRepositoryTest {
 
     @BeforeEach
     void connecting() throws SQLException {
-        String sql = "create table agile.progresses\n" +
-                "(\n" +
-                "    id          integer primary key,\n" +
-                "    name        varchar(255) not null,\n" +
-                "    description varchar(255) not null\n" +
-                ")\\;\n" +
-                "insert into agile.progresses\n" +
-                "values (1, 'TO DO', 'to do elements'),\n" +
-                "       (2, 'IN PROGRESS', 'tasks in progress')\\;\n";
-
-        conn = DriverManager.getConnection("jdbc:h2:mem:test;INIT=CREATE SCHEMA IF NOT EXISTS agile\\;SET SCHEMA agile\\;" + sql, "admin", "admin");
+        conn = DriverManager.getConnection("jdbc:h2:mem:test;INIT=runscript from './database_test.sql'\\;", "admin", "admin");
     }
 
     @AfterEach
@@ -72,7 +66,6 @@ class ProgressRepositoryTest {
             return arg.apply(conn);
         });
 
-        List<ProgressEntity> progressEntities = new ArrayList<>();
         ProgressEntity progressEntity1 = new ProgressEntity();
         progressEntity1.setId(1);
         progressEntity1.setName("TO DO");
@@ -83,8 +76,27 @@ class ProgressRepositoryTest {
         progressEntity2.setName("IN PROGRESS");
         progressEntity2.setDescription("tasks in progress");
 
-        progressEntities.add(progressEntity1);
-        progressEntities.add(progressEntity2);
+        ProgressEntity progressEntity3 = new ProgressEntity();
+        progressEntity3.setId(3);
+        progressEntity3.setName("REVIEW");
+        progressEntity3.setDescription("task reported to review");
+
+        ProgressEntity progressEntity4 = new ProgressEntity();
+        progressEntity4.setId(4);
+        progressEntity4.setName("APPROVED REVIEW");
+        progressEntity4.setDescription("task after positive review");
+
+        ProgressEntity progressEntity5 = new ProgressEntity();
+        progressEntity5.setId(5);
+        progressEntity5.setName("REVIEW REJECTED");
+        progressEntity5.setDescription("rejected review");
+
+        ProgressEntity progressEntity6 = new ProgressEntity();
+        progressEntity6.setId(6);
+        progressEntity6.setName("DONE");
+        progressEntity6.setDescription("done task");
+
+        List<ProgressEntity> progressEntities = new ArrayList<>(Arrays.asList(progressEntity1, progressEntity2, progressEntity3, progressEntity4, progressEntity5, progressEntity6));
 
         assertTrue(progressEntities.containsAll(progressRepository.getAll()));
         assertTrue(progressRepository.getAll().containsAll(progressEntities));
