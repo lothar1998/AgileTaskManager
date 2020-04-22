@@ -1,6 +1,7 @@
 package persistence.repositiories;
 
 import persistence.AbstractRepository;
+import persistence.DataAccessLayer;
 import persistence.ReadRepository;
 import persistence.entities.ProgressEntity;
 
@@ -11,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProgressRepository extends AbstractRepository implements ReadRepository<ProgressEntity> {
+    public ProgressRepository(DataAccessLayer dataAccessLayer) {
+        super(dataAccessLayer);
+    }
+
     @Override
     public ProgressEntity get(Integer arg) throws SQLException {
         String sql = "SELECT * FROM agile.progresses WHERE id = ?";

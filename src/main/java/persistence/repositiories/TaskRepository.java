@@ -2,6 +2,7 @@ package persistence.repositiories;
 
 import persistence.AbstractRepository;
 import persistence.CrudRepository;
+import persistence.DataAccessLayer;
 import persistence.entities.TaskEntity;
 
 import java.sql.PreparedStatement;
@@ -12,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskRepository extends AbstractRepository implements CrudRepository<TaskEntity> {
+    public TaskRepository(DataAccessLayer dataAccessLayer) {
+        super(dataAccessLayer);
+    }
+
     @Override
     public void save(TaskEntity arg) throws SQLException {
         String sql = "INSERT INTO agile.tasks (story_id, description, estimation, progress_id, sprint_id) VALUES (?, ?, ? ,? ,?)";

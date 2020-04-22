@@ -29,7 +29,7 @@ class BacklogRepositoryTest {
     @Mock
     private static DataAccessLayer dataAccessLayer;
     @InjectMocks
-    private static CrudRepository<BacklogEntity> backlogRepository = new BacklogRepository();
+    private static final CrudRepository<BacklogEntity> backlogRepository = new BacklogRepository(dataAccessLayer);
 
     private static Connection conn;
 

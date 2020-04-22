@@ -29,7 +29,7 @@ class ProjectRepositoryTest {
     @Mock
     private static DataAccessLayer dataAccessLayer;
     @InjectMocks
-    private static CrudRepository<ProjectEntity> projectRepository = new ProjectRepository();
+    private static final CrudRepository<ProjectEntity> projectRepository = new ProjectRepository(dataAccessLayer);
 
     private static Connection conn;
 

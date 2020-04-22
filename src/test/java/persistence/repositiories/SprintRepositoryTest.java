@@ -28,7 +28,7 @@ class SprintRepositoryTest {
     @Mock
     private static DataAccessLayer dataAccessLayer;
     @InjectMocks
-    private static CrudRepository<SprintEntity> sprintRepository = new SprintRepository();
+    private static final CrudRepository<SprintEntity> sprintRepository = new SprintRepository(dataAccessLayer);
 
     private static Connection conn;
 

@@ -30,7 +30,7 @@ class ProgressRepositoryTest {
     @Mock
     private static DataAccessLayer dataAccessLayer;
     @InjectMocks
-    private static ReadRepository<ProgressEntity> progressRepository = new ProgressRepository();
+    private static final ReadRepository<ProgressEntity> progressRepository = new ProgressRepository(dataAccessLayer);
 
     private static Connection conn;
 

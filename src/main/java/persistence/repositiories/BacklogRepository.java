@@ -2,6 +2,7 @@ package persistence.repositiories;
 
 import persistence.AbstractRepository;
 import persistence.CrudRepository;
+import persistence.DataAccessLayer;
 import persistence.entities.BacklogEntity;
 
 import java.sql.PreparedStatement;
@@ -12,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BacklogRepository extends AbstractRepository implements CrudRepository<BacklogEntity> {
+    public BacklogRepository(DataAccessLayer dataAccessLayer) {
+        super(dataAccessLayer);
+    }
+
     @Override
     public void save(BacklogEntity arg) throws SQLException {
         String sql = "INSERT INTO agile.backlogs (description, project_id) VALUES (?, ?)";

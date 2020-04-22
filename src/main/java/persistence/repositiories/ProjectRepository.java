@@ -2,6 +2,7 @@ package persistence.repositiories;
 
 import persistence.AbstractRepository;
 import persistence.CrudRepository;
+import persistence.DataAccessLayer;
 import persistence.entities.ProjectEntity;
 
 import java.sql.PreparedStatement;
@@ -12,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectRepository extends AbstractRepository implements CrudRepository<ProjectEntity> {
+    public ProjectRepository(DataAccessLayer dataAccessLayer) {
+        super(dataAccessLayer);
+    }
+
     @Override
     public void save(ProjectEntity arg) throws SQLException {
         String sql = "INSERT INTO agile.projects (name, description) VALUES (?, ?)";

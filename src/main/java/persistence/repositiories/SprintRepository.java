@@ -2,6 +2,7 @@ package persistence.repositiories;
 
 import persistence.AbstractRepository;
 import persistence.CrudRepository;
+import persistence.DataAccessLayer;
 import persistence.entities.SprintEntity;
 
 import java.sql.PreparedStatement;
@@ -12,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SprintRepository extends AbstractRepository implements CrudRepository<SprintEntity> {
+
+    public SprintRepository(DataAccessLayer dataAccessLayer) {
+        super(dataAccessLayer);
+    }
 
     @Override
     public void save(SprintEntity arg) throws SQLException {

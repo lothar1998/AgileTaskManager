@@ -29,7 +29,7 @@ class StoryRepositoryTest {
     @Mock
     private static DataAccessLayer dataAccessLayer;
     @InjectMocks
-    private static CrudRepository<StoryEntity> storyRepository = new StoryRepository();
+    private static final CrudRepository<StoryEntity> storyRepository = new StoryRepository(dataAccessLayer);
 
     private static Connection conn;
 
