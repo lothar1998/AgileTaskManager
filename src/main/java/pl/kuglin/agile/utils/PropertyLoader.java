@@ -3,7 +3,7 @@ package pl.kuglin.agile.utils;
 import java.util.Properties;
 
 public interface PropertyLoader {
-    void load();
+    void loadProperties();
 
     String getProperty(String propertyName);
 

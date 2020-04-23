@@ -2,7 +2,6 @@ package pl.kuglin.agile.persistence;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.kuglin.agile.utils.PropertyLoader;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,10 +16,9 @@ public class DataAccessLayer {
     private final String databaseURL;
     private final Properties connectionProperties;
 
-    public DataAccessLayer(PropertyLoader propertyLoader) {
-        propertyLoader.load();
-        connectionProperties = propertyLoader.getProperties();
-        databaseURL = propertyLoader.getProperty(URL_PROPERTY);
+    public DataAccessLayer(Properties properties) {
+        connectionProperties = properties;
+        databaseURL = connectionProperties.getProperty(URL_PROPERTY);
     }
 
     public void executeQuery(ConsumerSQL<Connection> consumer) throws SQLException {
