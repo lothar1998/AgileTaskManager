@@ -73,7 +73,11 @@
             <version>1.4.200</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+            <version>5.2.2.RELEASE</version>
+        </dependency>
 
 
     </dependencies>
