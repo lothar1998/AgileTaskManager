@@ -16,9 +16,9 @@ import static pl.kuglin.agile.utils.FilePropertyLoader.ExceptionMessage.LOAD_FIL
  * file will be closed, but properties will be persisted in properties field.
  */
 public class FilePropertyLoader implements PropertyLoader {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private Logger log = LoggerFactory.getLogger(getClass());
 
-    private final Properties properties = new Properties();
+    private Properties properties = new Properties();
     private FileInputStream file;
 
     FilePropertyLoader() {
@@ -39,10 +39,6 @@ public class FilePropertyLoader implements PropertyLoader {
         }
 
         closeFile();
-    }
-
-    public String getProperty(String propertyName) {
-        return properties.getProperty(propertyName);
     }
 
     public Properties getProperties() {

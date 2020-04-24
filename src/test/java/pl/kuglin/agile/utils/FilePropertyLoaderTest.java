@@ -22,8 +22,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class FilePropertyLoaderTest {
 
-    private static final String EXPECTED_RESULT = "result";
-    private static final String PROPERTY_NAME = "property";
     private static final String WRONG_PATH = "wrong path";
     private static final String PROPERTY_KEY = "key";
     private static final String PROPERTY_VALUE = "value";
@@ -68,16 +66,7 @@ class FilePropertyLoaderTest {
 
         filePropertyLoader.loadProperties();
 
-        assertEquals(PROPERTY_VALUE, filePropertyLoader.getProperty(PROPERTY_KEY));
-    }
-
-    @Test
-    void getPropertyTest() {
-        when(properties.getProperty(anyString())).thenAnswer(invocation -> EXPECTED_RESULT);
-
-        String obtainedPropertyValue = filePropertyLoader.getProperty(PROPERTY_NAME);
-
-        assertEquals(EXPECTED_RESULT, obtainedPropertyValue);
+        assertEquals(PROPERTY_VALUE, filePropertyLoader.getProperties().getProperty(PROPERTY_KEY));
     }
 
     @Test
