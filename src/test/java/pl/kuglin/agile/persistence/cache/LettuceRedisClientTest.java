@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class RedisConnectionClientTest {
+class LettuceRedisClientTest {
 
     private static final String KEY = "key";
     private static final String VALUE = "value";
@@ -42,7 +42,7 @@ class RedisConnectionClientTest {
     private RedisClient client;
     @Spy
     @InjectMocks
-    private RedisConnectionClient redisClient = new RedisConnectionClient();
+    private LettuceRedisClient redisClient = new LettuceRedisClient();
 
     @Captor
     private ArgumentCaptor<String> keyCaptor;
