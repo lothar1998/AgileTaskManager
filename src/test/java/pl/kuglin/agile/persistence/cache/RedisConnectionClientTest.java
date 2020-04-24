@@ -1,6 +1,7 @@
 package pl.kuglin.agile.persistence.cache;
 
 import io.lettuce.core.RedisClient;
+import io.lettuce.core.RedisFuture;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 import io.lettuce.core.api.sync.RedisCommands;
@@ -8,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,6 +28,11 @@ class RedisConnectionClientTest {
     private static final Long DEFAULT_EXPIRE_TIME = 0L;
 
     @Mock
+    private RedisFuture<String> redisStringFuture;
+    @Mock
+    private RedisFuture<Boolean> redisBooleanFuture;
+
+    @Mock
     private StatefulRedisConnection<String, String> connection;
     @Mock
     private RedisCommands<String, String> syncCommand;
@@ -34,6 +43,7 @@ class RedisConnectionClientTest {
     @Spy
     @InjectMocks
     private RedisConnectionClient redisClient = new RedisConnectionClient();
+
     @Captor
     private ArgumentCaptor<String> keyCaptor;
     @Captor
@@ -89,6 +99,46 @@ class RedisConnectionClientTest {
 
         assertEquals(KEY, keyCaptor.getValue());
         assertEquals(VALUE, obtainedValue);
+    }
+
+    @Test
+    void keysTest(){
+        List<String> listToReturn = Collections.emptyList();
+
+        when(syncCommand.keys(anyString())).thenReturn(listToReturn);
+
+        List<String> obtainedList = redisClient.keys(KEY);
+
+        verify(syncCommand).keys(keyCaptor.capture());
+
+        assertEquals(KEY, keyCaptor.getValue());
+        assertEquals(listToReturn, obtainedList);
+    }
+
+    @Test
+    void asyncSetTest(){
+        when(asyncCommand.set(anyString(), anyString())).thenReturn(redisStringFuture);
+        when(asyncCommand.expire(anyString(), anyLong())).thenReturn(redisBooleanFuture);
+
+        redisClient.asyncSet(KEY, VALUE);
+
+        verify(asyncCommand).set(keyCaptor.capture(), valueCaptor.capture());
+
+        assertEquals(KEY, keyCaptor.getValue());
+        assertEquals(VALUE, valueCaptor.getValue());
+    }
+
+    @Test
+    void asyncExpireTest(){
+        when(asyncCommand.set(anyString(), anyString())).thenReturn(redisStringFuture);
+        when(asyncCommand.expire(anyString(), anyLong())).thenReturn(redisBooleanFuture);
+
+        redisClient.asyncSet(KEY, VALUE);
+
+        verify(asyncCommand).expire(keyCaptor.capture(), expireTimeCaptor.capture());
+
+        assertEquals(KEY, keyCaptor.getValue());
+        assertEquals(DEFAULT_EXPIRE_TIME, expireTimeCaptor.getValue());
     }
 
     @Test
