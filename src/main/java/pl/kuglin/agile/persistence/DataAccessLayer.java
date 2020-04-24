@@ -8,13 +8,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import static pl.kuglin.agile.persistence.DataAccessLayer.ExceptionMessage.CLOSE_CONNECTION_ERROR;
+import static pl.kuglin.agile.persistence.DataAccessLayer.ExceptionMessage.ESTABLISH_CONNECTION_ERROR;
+
 public class DataAccessLayer {
     private static final String URL_PROPERTY = "URL";
 
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private Logger log = LoggerFactory.getLogger(getClass());
 
-    private final String databaseURL;
-    private final Properties connectionProperties;
+    private String databaseURL;
+    private Properties connectionProperties;
+
+    DataAccessLayer() {
+
+    }
 
     public DataAccessLayer(Properties properties) {
         connectionProperties = properties;
@@ -54,11 +61,11 @@ public class DataAccessLayer {
     }
 
     private void handleEstablishConnectionException(SQLException ex) throws SQLException {
-        log.warn("Cannot establish connection or execute SQL query", ex);
+        log.warn("{}", ESTABLISH_CONNECTION_ERROR, ex);
         throw new SQLException(ex);
     }
 
-    private synchronized Connection establishConnection() throws SQLException {
+    synchronized Connection establishConnection() throws SQLException {
         return DriverManager.getConnection(databaseURL, connectionProperties);
     }
 
@@ -67,7 +74,24 @@ public class DataAccessLayer {
             if (conn != null)
                 conn.close();
         } catch (SQLException ex) {
-            log.warn("Cannot close connection", ex);
+            log.warn("{}", CLOSE_CONNECTION_ERROR, ex);
+        }
+    }
+
+    enum ExceptionMessage{
+
+        ESTABLISH_CONNECTION_ERROR("Cannot establish connection or execute SQL query"),
+        CLOSE_CONNECTION_ERROR("Cannot close connection");
+
+        private final String message;
+
+        ExceptionMessage(String message){
+            this.message = message;
+        }
+
+        @Override
+        public String toString() {
+            return message;
         }
     }
 }
