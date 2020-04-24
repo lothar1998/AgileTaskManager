@@ -35,7 +35,7 @@ public class FilePropertyLoader implements PropertyLoader {
         try {
             properties.load(file);
         } catch (IOException ex) {
-            log.error(LOAD_FILE_ERROR.toString(), ex);
+            log.error("{}", LOAD_FILE_ERROR, ex);
         }
 
         closeFile();
@@ -50,7 +50,7 @@ public class FilePropertyLoader implements PropertyLoader {
             if (file != null)
                 file.close();
         } catch (IOException ex) {
-            log.warn(FILE_CLOSE_ERROR.toString(), ex);
+            log.warn("{}", FILE_CLOSE_ERROR, ex);
         }
     }
 

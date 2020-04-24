@@ -2,10 +2,7 @@ package pl.kuglin.agile.utils;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 
@@ -18,6 +15,8 @@ import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
+import static pl.kuglin.agile.utils.FilePropertyLoader.ExceptionMessage.FILE_CLOSE_ERROR;
+import static pl.kuglin.agile.utils.FilePropertyLoader.ExceptionMessage.LOAD_FILE_ERROR;
 
 @ExtendWith(MockitoExtension.class)
 class FilePropertyLoaderTest {
@@ -33,6 +32,10 @@ class FilePropertyLoaderTest {
     private Properties properties;
     @Mock
     private Logger log;
+    @Captor
+    private ArgumentCaptor<Enum<FilePropertyLoader.ExceptionMessage>> message;
+    @Captor
+    private ArgumentCaptor<Throwable> throwable;
 
     @Test
     void constructorFileNotFoundExceptionTest() {
@@ -41,18 +44,13 @@ class FilePropertyLoaderTest {
 
     @Test
     void loadThrowsIOExceptionTest() throws IOException {
-        ArgumentCaptor<String> message = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<Throwable> throwable = ArgumentCaptor.forClass(Throwable.class);
-
-        doAnswer(invocation -> {
-            throw new IOException();
-        }).when(properties).load(any(InputStream.class));
+       doThrow(IOException.class).when(properties).load(any(InputStream.class));
 
         filePropertyLoader.loadProperties();
 
-        verify(log).error(message.capture(), throwable.capture());
+        verify(log).error(anyString(), message.capture(), throwable.capture());
 
-        assertEquals(FilePropertyLoader.ExceptionMessage.LOAD_FILE_ERROR.toString(), message.getValue());
+        assertEquals(LOAD_FILE_ERROR, message.getValue());
         assertEquals(IOException.class, throwable.getValue().getClass());
     }
 
@@ -78,18 +76,13 @@ class FilePropertyLoaderTest {
 
     @Test
     void closeFileThrowsIOExceptionTest() throws IOException {
-        ArgumentCaptor<String> message = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<Throwable> throwable = ArgumentCaptor.forClass(Throwable.class);
-
-        doAnswer(invocation -> {
-            throw new IOException();
-        }).when(file).close();
+        doThrow(IOException.class).when(file).close();
 
         filePropertyLoader.loadProperties();
 
-        verify(log).warn(message.capture(), throwable.capture());
+        verify(log).warn(anyString(), message.capture(), throwable.capture());
 
-        assertEquals(FilePropertyLoader.ExceptionMessage.FILE_CLOSE_ERROR.toString(), message.getValue());
+        assertEquals(FILE_CLOSE_ERROR, message.getValue());
         assertEquals(IOException.class, throwable.getValue().getClass());
     }
 }
