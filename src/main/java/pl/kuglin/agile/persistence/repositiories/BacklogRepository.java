@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BacklogRepository extends AbstractRepository implements CrudRepository<BacklogEntity> {
+public class BacklogRepository extends AbstractRepository implements CrudRepository<BacklogEntity, Integer> {
     public BacklogRepository(DataAccessLayer dataAccessLayer) {
         super(dataAccessLayer);
     }

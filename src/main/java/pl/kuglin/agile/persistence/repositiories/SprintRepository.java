@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SprintRepository extends AbstractRepository implements CrudRepository<SprintEntity> {
+public class SprintRepository extends AbstractRepository implements CrudRepository<SprintEntity, Integer> {
 
     public SprintRepository(DataAccessLayer dataAccessLayer) {
         super(dataAccessLayer);

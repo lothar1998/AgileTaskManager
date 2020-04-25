@@ -30,7 +30,7 @@ class TaskRepositoryTest {
     @Mock
     private static DataAccessLayer dataAccessLayer;
     @InjectMocks
-    private static final CrudRepository<TaskEntity> taskRepository = new TaskRepository(dataAccessLayer);
+    private static final CrudRepository<TaskEntity, Integer> taskRepository = new TaskRepository(dataAccessLayer);
 
     private static Connection conn;
 

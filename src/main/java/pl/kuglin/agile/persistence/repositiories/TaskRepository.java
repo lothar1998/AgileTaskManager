@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskRepository extends AbstractRepository implements CrudRepository<TaskEntity> {
+public class TaskRepository extends AbstractRepository implements CrudRepository<TaskEntity, Integer> {
     public TaskRepository(DataAccessLayer dataAccessLayer) {
         super(dataAccessLayer);
     }

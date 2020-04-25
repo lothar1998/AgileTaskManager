@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProgressRepository extends AbstractRepository implements ReadRepository<ProgressEntity> {
+public class ProgressRepository extends AbstractRepository implements ReadRepository<ProgressEntity, Integer> {
     public ProgressRepository(DataAccessLayer dataAccessLayer) {
         super(dataAccessLayer);
     }
