@@ -10,9 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -99,20 +96,6 @@ class LettuceRedisClientTest {
 
         assertEquals(KEY, keyCaptor.getValue());
         assertEquals(VALUE, obtainedValue);
-    }
-
-    @Test
-    void keysTest(){
-        List<String> listToReturn = Collections.emptyList();
-
-        when(syncCommand.keys(anyString())).thenReturn(listToReturn);
-
-        List<String> obtainedList = redisClient.keys(KEY);
-
-        verify(syncCommand).keys(keyCaptor.capture());
-
-        assertEquals(KEY, keyCaptor.getValue());
-        assertEquals(listToReturn, obtainedList);
     }
 
     @Test

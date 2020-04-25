@@ -5,10 +5,9 @@ import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 import io.lettuce.core.api.sync.RedisCommands;
 
-import java.util.List;
 import java.util.Properties;
 
-public class LettuceRedisClient implements RedisConnectionClient<String, String, String>{
+public class LettuceRedisClient implements RedisConnectionClient<String, String>{
     private static final String URL_PROPERTY = "redis.url";
     private static final String EXPIRE_TIME_PROPERTY = "redis.expire";
 
@@ -45,10 +44,6 @@ public class LettuceRedisClient implements RedisConnectionClient<String, String,
 
     public String get(String key){
         return command.get(key);
-    }
-
-    public List<String> keys(String pattern){
-        return command.keys(pattern);
     }
 
     public void asyncSet(String key, String value){
