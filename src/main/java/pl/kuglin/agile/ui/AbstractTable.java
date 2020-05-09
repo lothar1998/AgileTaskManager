@@ -16,10 +16,6 @@ public abstract class AbstractTable extends JTable {
         setUp();
     }
 
-    protected void setDefault(){
-
-    }
-
     protected void addTableColumn(String columnName){
         ((DefaultTableModel)dataModel).addColumn(columnName);
     }
