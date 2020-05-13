@@ -3,10 +3,11 @@ package pl.kuglin.agile.ui.command;
 import pl.kuglin.agile.ui.AbstractTable;
 import pl.kuglin.agile.ui.AbstractWindow;
 import pl.kuglin.agile.ui.table.SprintTable;
+import pl.kuglin.agile.ui.window.ErrorDialog;
 
 import javax.swing.*;
 
-public class GetSprintsByProjectIdCommand extends OnButtonCommand implements Command{
+public class GetSprintsByProjectIdCommand extends MainWindowCommand implements Command{
 
     private final AbstractWindow window;
     private Integer projectId;
@@ -40,12 +41,10 @@ public class GetSprintsByProjectIdCommand extends OnButtonCommand implements Com
                     window.getGetMoreButton().addActionListener(a -> new GetTasksBySprintIdCommand(projectId, window).execute());
                     window.getGetMoreButton().setEnabled(true);
                     window.getBackButton().setEnabled(true);
-
-                    window.getTopLabel().setText("Sprint");
-
+                    changeTopLabelText("Sprint", window);
                     addNewScrollPane(window.getTableScrollPane(), window);
                 }),
-                Throwable::printStackTrace //TODO error window
+                t -> SwingUtilities.invokeLater(() -> new ErrorDialog(t.toString(), window))
         );
     }
 }

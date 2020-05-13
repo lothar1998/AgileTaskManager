@@ -11,19 +11,16 @@ import pl.kuglin.agile.reactive.ActionRunnerFactory;
 import pl.kuglin.agile.reactive.CallableRunnerFactory;
 import pl.kuglin.agile.reactive.CompletableRunnerFactory;
 import pl.kuglin.agile.reactive.SingleRunnerFactory;
-import pl.kuglin.agile.ui.AbstractWindow;
 import pl.kuglin.agile.ui.window.MainWindow;
 import pl.kuglin.agile.utils.FilePropertyLoader;
 import pl.kuglin.agile.utils.PropertyLoader;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
 import java.util.Properties;
 
 public class AgileTaskManager {
-    public static void main(String[] args) throws FileNotFoundException, SQLException, InterruptedException {
-
-
+    public static void main(String[] args) throws FileNotFoundException {
 
         PropertyLoader redisPropertiesLoader = new FilePropertyLoader( "src/main/resources/redis.properties");
         redisPropertiesLoader.loadProperties();
@@ -51,18 +48,8 @@ public class AgileTaskManager {
         CallableRunnerFactory callableRunner = new SingleRunnerFactory();
         ActionRunnerFactory actionRunner = new CompletableRunnerFactory();
 
-        AbstractWindow window = new MainWindow(repositoryPack, callableRunner, actionRunner);
-//
-//        ProjectEntity pr = new ProjectEntity();
-//        pr.setName("TEST");
-//        pr.setDescription("TEST");
+        SwingUtilities.invokeLater(() ->  new MainWindow(repositoryPack, callableRunner, actionRunner));
 
-//        callableRunner.createAndRun(() -> projectRepository.get(1), projectEntity -> System.out.println(projectEntity), Throwable::printStackTrace);
-//        actionRunner.createAndRun(() -> projectRepository.save(pr), () -> System.out.println("Saved"), Throwable::printStackTrace);
-//        callableRunner.createAndRun(() -> projectRepository.get(pr.getId()), projectEntity -> System.out.println(projectEntity), Throwable::printStackTrace);
-
-//        TimeUnit.SECONDS.sleep(5);
-
-//        client.closeClient();
+        Runtime.getRuntime().addShutdownHook(new Thread(client::closeClient));
     }
 }

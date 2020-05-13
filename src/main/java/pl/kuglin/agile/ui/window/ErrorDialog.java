@@ -1,0 +1,47 @@
+package pl.kuglin.agile.ui.window;
+
+import pl.kuglin.agile.ui.AbstractWindow;
+import pl.kuglin.agile.ui.button.OkButton;
+import pl.kuglin.agile.ui.panel.BoxPanel;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class ErrorDialog extends JDialog {
+
+    private static final String WINDOW_NAME = "ERROR";
+
+    public ErrorDialog(String text, AbstractWindow window) {
+        super(window, WINDOW_NAME);
+
+        JPanel mainPanel = new BoxPanel(BoxPanel.Axis.Y_AXIS);
+
+            mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+            JPanel textPanel = new BoxPanel(BoxPanel.Axis.X_AXIS);
+
+                textPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+                JTextArea infoText = new JTextArea(text);
+                infoText.setLineWrap(true);
+                infoText.setEditable(false);
+                textPanel.add(infoText);
+                textPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+
+            mainPanel.add(textPanel);
+            mainPanel.add(Box.createRigidArea(new Dimension(0, 30)));
+
+            JPanel buttonPanel = new BoxPanel(BoxPanel.Axis.X_AXIS);
+
+                JButton okButton = new OkButton(a -> {this.dispose(); window.dispose();});
+                buttonPanel.add(okButton);
+
+            mainPanel.add(buttonPanel);
+            mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+        add(mainPanel);
+        setSize(400, 200);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setVisible(true);
+    }
+}

@@ -6,7 +6,7 @@ import pl.kuglin.agile.ui.AbstractWindow;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public abstract class OnButtonCommand implements Command{
+public abstract class MainWindowCommand implements Command{
     protected void removeAllActionListeners(JButton button){
         ActionListener[] actionListeners = button.getActionListeners();
 
@@ -25,5 +25,9 @@ public abstract class OnButtonCommand implements Command{
         window.setTableScrollPane(new JScrollPane(table));
         window.setTable(table);
         return table;
+    }
+
+    protected void changeTopLabelText(String text, AbstractWindow window){
+        window.getTopLabel().setText(text);
     }
 }
