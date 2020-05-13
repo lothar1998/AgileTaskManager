@@ -13,17 +13,6 @@ insert into agile.projects
 values (1, 'project 1', 'project description 1'),
        (2, 'project 2', 'project description 2');
 
-create table agile.backlogs
-(
-    id          serial primary key,
-    description text,
-    project_id  integer references agile.projects (id)
-);
-
-insert into agile.backlogs
-values (1, 'backlog 1 description', 1),
-       (2, 'backlog 2 description', 1);
-
 create table agile.sprints
 (
     id         serial primary key,
@@ -35,17 +24,6 @@ create table agile.sprints
 insert into agile.sprints
 values (1, 'sprint 1', 1, 1),
        (2, 'sprint 2', 2, 1);
-
-create table agile.stories
-(
-    id          serial primary key,
-    description text,
-    backlog_id  integer references agile.backlogs (id)
-);
-
-insert into agile.stories
-values (1, 'story 1 description', 1),
-       (2, 'story 2 description', 1);
 
 create table agile.progresses
 (
@@ -65,7 +43,6 @@ values (1, 'TO DO', 'to do elements'),
 create table agile.tasks
 (
     id          serial primary key,
-    story_id    integer references agile.stories (id),
     description varchar(255),
     estimation  integer,
     progress_id integer references agile.progresses (id),
@@ -73,7 +50,7 @@ create table agile.tasks
 );
 
 insert into agile.tasks
-values (1, 1, 'task 1 description', 5, 1, 1),
-       (2, 1, 'task 2 description', 7, 1, 1);
+values (1, 'task 1 description', 5, 1, 1),
+       (2, 'task 2 description', 7, 1, 1);
 
 commit;

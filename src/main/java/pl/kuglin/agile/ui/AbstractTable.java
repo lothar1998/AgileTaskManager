@@ -2,7 +2,6 @@ package pl.kuglin.agile.ui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 public abstract class AbstractTable extends JTable {
 
@@ -11,16 +10,16 @@ public abstract class AbstractTable extends JTable {
         setUp();
     }
 
-    public AbstractTable(TableModel tableModel) {
+    public AbstractTable(DefaultTableModel tableModel) {
         super(tableModel);
         setUp();
     }
 
-    protected void addTableColumn(String columnName){
+    protected void addColumn(String columnName){
         ((DefaultTableModel)dataModel).addColumn(columnName);
     }
 
-    protected void addTableRow(Object... elements){
+    public void addRow(Object... elements){
         ((DefaultTableModel)dataModel).addRow(elements);
     }
 

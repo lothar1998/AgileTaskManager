@@ -53,7 +53,6 @@ class TaskRepositoryTest {
 
         TaskEntity expectedEntity = new TaskEntity();
         expectedEntity.setId(1);
-        expectedEntity.setStoryId(1);
         expectedEntity.setDescription("task 1 description");
         expectedEntity.setEstimation(5);
         expectedEntity.setProgressId(1);
@@ -73,7 +72,6 @@ class TaskRepositoryTest {
 
         TaskEntity expectedEntity1 = new TaskEntity();
         expectedEntity1.setId(1);
-        expectedEntity1.setStoryId(1);
         expectedEntity1.setDescription("task 1 description");
         expectedEntity1.setEstimation(5);
         expectedEntity1.setProgressId(1);
@@ -82,7 +80,6 @@ class TaskRepositoryTest {
 
         TaskEntity expectedEntity2 = new TaskEntity();
         expectedEntity2.setId(2);
-        expectedEntity2.setStoryId(1);
         expectedEntity2.setDescription("task 2 description");
         expectedEntity2.setEstimation(7);
         expectedEntity2.setProgressId(1);
@@ -106,7 +103,6 @@ class TaskRepositoryTest {
         }).when(dataAccessLayer).executeQuery(ArgumentMatchers.<ConsumerSQL<Connection>>any());
 
         TaskEntity toSaveEntity = new TaskEntity();
-        toSaveEntity.setStoryId(1);
         toSaveEntity.setDescription("new task");
         toSaveEntity.setEstimation(22);
         toSaveEntity.setProgressId(1);
@@ -125,7 +121,6 @@ class TaskRepositoryTest {
         if (result.next()) {
             taskEntity = new TaskEntity();
             taskEntity.setId(result.getInt("id"));
-            taskEntity.setStoryId(result.getInt("story_id"));
             taskEntity.setDescription(result.getString("description"));
             taskEntity.setEstimation(result.getInt("estimation"));
             taskEntity.setProgressId(result.getInt("progress_id"));
@@ -156,7 +151,6 @@ class TaskRepositoryTest {
         if (result.next()) {
             taskEntity = new TaskEntity();
             taskEntity.setId(result.getInt("id"));
-            taskEntity.setStoryId(result.getInt("story_id"));
             taskEntity.setDescription(result.getString("description"));
             taskEntity.setEstimation(result.getInt("estimation"));
             taskEntity.setProgressId(result.getInt("progress_id"));
@@ -179,7 +173,6 @@ class TaskRepositoryTest {
 
         if (resultOfUpdate.next()) {
             resultOfUpdateEntity.setId(resultOfUpdate.getInt("id"));
-            resultOfUpdateEntity.setStoryId(resultOfUpdate.getInt("story_id"));
             resultOfUpdateEntity.setDescription(resultOfUpdate.getString("description"));
             resultOfUpdateEntity.setEstimation(resultOfUpdate.getInt("estimation"));
             resultOfUpdateEntity.setProgressId(resultOfUpdate.getInt("progress_id"));
@@ -210,7 +203,6 @@ class TaskRepositoryTest {
         if (result.next()) {
             taskEntity = new TaskEntity();
             taskEntity.setId(result.getInt("id"));
-            taskEntity.setStoryId(result.getInt("story_id"));
             taskEntity.setDescription(result.getString("description"));
             taskEntity.setEstimation(result.getInt("estimation"));
             taskEntity.setProgressId(result.getInt("progress_id"));

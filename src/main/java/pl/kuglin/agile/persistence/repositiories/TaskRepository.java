@@ -19,15 +19,14 @@ public class TaskRepository extends AbstractRepository implements CrudRepository
 
     @Override
     public void save(TaskEntity arg) throws SQLException {
-        String sql = "INSERT INTO agile.tasks (story_id, description, estimation, progress_id, sprint_id) VALUES (?, ?, ? ,? ,?)";
+        String sql = "INSERT INTO agile.tasks (description, estimation, progress_id, sprint_id) VALUES (?, ? ,? ,?)";
         dataAccessLayer.executeQuery(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            statement.setInt(1, arg.getStoryId());
-            statement.setString(2, arg.getDescription());
-            statement.setInt(3, arg.getEstimation());
-            statement.setInt(4, arg.getProgressId());
-            statement.setInt(5, arg.getSprintId());
+            statement.setString(1, arg.getDescription());
+            statement.setInt(2, arg.getEstimation());
+            statement.setInt(3, arg.getProgressId());
+            statement.setInt(4, arg.getSprintId());
             statement.executeUpdate();
 
             ResultSet resultKey = statement.getGeneratedKeys();
@@ -41,16 +40,15 @@ public class TaskRepository extends AbstractRepository implements CrudRepository
 
     @Override
     public void update(TaskEntity arg) throws SQLException {
-        String sql = "UPDATE agile.tasks SET story_id = ?, description = ?, estimation = ?, progress_id = ?, sprint_id = ? WHERE id = ?";
+        String sql = "UPDATE agile.tasks SET description = ?, estimation = ?, progress_id = ?, sprint_id = ? WHERE id = ?";
         dataAccessLayer.executeQuery(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            statement.setInt(1, arg.getStoryId());
-            statement.setString(2, arg.getDescription());
-            statement.setInt(3, arg.getEstimation());
-            statement.setInt(4, arg.getProgressId());
-            statement.setInt(5, arg.getSprintId());
-            statement.setInt(6, arg.getId());
+            statement.setString(1, arg.getDescription());
+            statement.setInt(2, arg.getEstimation());
+            statement.setInt(3, arg.getProgressId());
+            statement.setInt(4, arg.getSprintId());
+            statement.setInt(5, arg.getId());
             statement.executeUpdate();
 
             statement.close();
@@ -87,7 +85,6 @@ public class TaskRepository extends AbstractRepository implements CrudRepository
                 taskEntity.setId(result.getInt("id"));
                 taskEntity.setDescription(result.getString("description"));
                 taskEntity.setEstimation(result.getInt("estimation"));
-                taskEntity.setStoryId(result.getInt("story_id"));
                 taskEntity.setSprintId(result.getInt("sprint_id"));
                 taskEntity.setProgressId(result.getInt("progress_id"));
             }
@@ -113,7 +110,6 @@ public class TaskRepository extends AbstractRepository implements CrudRepository
                 taskEntity.setId(result.getInt("id"));
                 taskEntity.setDescription(result.getString("description"));
                 taskEntity.setEstimation(result.getInt("estimation"));
-                taskEntity.setStoryId(result.getInt("story_id"));
                 taskEntity.setSprintId(result.getInt("sprint_id"));
                 taskEntity.setProgressId(result.getInt("progress_id"));
 
