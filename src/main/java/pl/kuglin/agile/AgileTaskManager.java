@@ -19,6 +19,7 @@ import pl.kuglin.agile.reactive.CallableRunnerFactory;
 import pl.kuglin.agile.reactive.CompletableRunnerFactory;
 import pl.kuglin.agile.reactive.SingleRunnerFactory;
 import pl.kuglin.agile.ui.window.MainWindow;
+import pl.kuglin.agile.ui.window.WelcomeWindow;
 import pl.kuglin.agile.utils.FilePropertyLoader;
 import pl.kuglin.agile.utils.PropertyLoader;
 
@@ -55,7 +56,8 @@ public class AgileTaskManager {
         CallableRunnerFactory callableRunner = new SingleRunnerFactory();
         ActionRunnerFactory actionRunner = new CompletableRunnerFactory();
 
-        SwingUtilities.invokeLater(() -> new MainWindow(repositoryPack, callableRunner, actionRunner));
+        SwingUtilities.invokeLater(() -> new WelcomeWindow(repositoryPack, callableRunner, actionRunner));
+//        SwingUtilities.invokeLater(() -> new MainWindow(repositoryPack, callableRunner, actionRunner));
 
         Runtime.getRuntime().addShutdownHook(new Thread(client::closeClient));
     }

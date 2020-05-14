@@ -13,7 +13,7 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 
     protected void setDefault() {
         setFont(new Font("Georgia", Font.BOLD, 12));
-        setBackground(new Color(208, 206, 77));
+        setBackground(new Color(41, 142, 0));
         setBorderPainted(false);
         setFocusable(true);
         setForeground(new Color(0, 0, 0));

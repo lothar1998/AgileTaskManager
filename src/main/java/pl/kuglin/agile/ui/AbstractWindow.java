@@ -46,6 +46,7 @@ public abstract class AbstractWindow extends JFrame {
     }
 
     protected void setDefault() {
+        setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         setBackground(Color.WHITE);
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);

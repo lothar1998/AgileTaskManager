@@ -33,13 +33,15 @@ public class AddItemDialog extends JDialog {
                 JLabel label = new JLabel(entry.getKey());
                 label.setPreferredSize(new Dimension(100, 10));
                 label.setHorizontalAlignment(SwingConstants.RIGHT);
+                label.setFont(new Font("Georgia", Font.PLAIN, 13));
 
                 Component component = entry.getValue();
-                component.setPreferredSize(new Dimension(50, 30));
+                component.setPreferredSize(new Dimension(40, 30));
 
                 linePanel.add(label);
                 linePanel.add(Box.createRigidArea(new Dimension(10, 0)));
                 linePanel.add(entry.getValue());
+                linePanel.add(Box.createRigidArea(new Dimension(10, 0)));
 
             topPanel.add(linePanel);
             topPanel.add(Box.createRigidArea(new Dimension(0, 10)));

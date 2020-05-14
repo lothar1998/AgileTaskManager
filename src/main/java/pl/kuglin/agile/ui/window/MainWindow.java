@@ -11,6 +11,7 @@ import pl.kuglin.agile.ui.button.UpdateButton;
 import pl.kuglin.agile.ui.command.AddNewItemToTableCommand;
 import pl.kuglin.agile.ui.command.GetAllProjectsCommand;
 import pl.kuglin.agile.ui.command.strategy.AddProjectStrategy;
+import pl.kuglin.agile.ui.image.Icon;
 import pl.kuglin.agile.ui.label.TopLabel;
 import pl.kuglin.agile.ui.panel.BoxPanel;
 import pl.kuglin.agile.ui.table.ProjectTable;
@@ -35,10 +36,13 @@ public class MainWindow extends AbstractWindow {
         mainPanel.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
 
         topTextPanel = new BoxPanel(BoxPanel.Axis.X_AXIS);
-
+        
+        JLabel icon = new Icon();
         topLabel = new TopLabel("Project");
-
+        topTextPanel.add(icon);
+        topTextPanel.add(Box.createHorizontalGlue());
         topTextPanel.add(topLabel);
+        topTextPanel.add(Box.createRigidArea(new Dimension(20, 0)));
 
         mainPanel.add(topTextPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 30)));

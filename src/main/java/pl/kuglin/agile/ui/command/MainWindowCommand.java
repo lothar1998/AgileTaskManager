@@ -2,6 +2,7 @@ package pl.kuglin.agile.ui.command;
 
 import pl.kuglin.agile.ui.AbstractTable;
 import pl.kuglin.agile.ui.AbstractWindow;
+import pl.kuglin.agile.ui.scrollpane.CustomScrollPane;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -22,7 +23,7 @@ public abstract class MainWindowCommand implements Command {
 
     protected AbstractTable setNewTable(AbstractWindow window, AbstractTable table) {
         window.getTablePanel().remove(0);
-        window.setTableScrollPane(new JScrollPane(table));
+        window.setTableScrollPane(new CustomScrollPane(table));
         window.setTable(table);
         return table;
     }

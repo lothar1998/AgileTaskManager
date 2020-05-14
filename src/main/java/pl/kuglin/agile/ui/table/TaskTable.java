@@ -6,6 +6,7 @@ import pl.kuglin.agile.ui.popup.TaskTablePopup;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
@@ -23,12 +24,18 @@ public class TaskTable extends AbstractTable {
         addColumn("DESCRIPTION");
         addColumn("ESTIMATION");
         addColumn("PROGRESS");
-        setRowHeight(40);
         TableColumnModel columnModel = getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(20);
-        columnModel.getColumn(1).setPreferredWidth(800);
-        columnModel.getColumn(2).setPreferredWidth(20);
-        columnModel.getColumn(3).setPreferredWidth(50);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        columnModel.getColumn(0).setPreferredWidth(30);
+        columnModel.getColumn(0).setCellRenderer(centerRenderer);
+        columnModel.getColumn(1).setPreferredWidth(900);
+        columnModel.getColumn(2).setPreferredWidth(50);
+        columnModel.getColumn(2).setCellRenderer(centerRenderer);
+        columnModel.getColumn(3).setPreferredWidth(120);
+        columnModel.getColumn(3).setCellRenderer(centerRenderer);
         TableColumn progressColumn = columnModel.getColumn(3);
 
         comboBox = new JComboBox<>();

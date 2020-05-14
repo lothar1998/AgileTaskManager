@@ -7,7 +7,6 @@ public class TopLabel extends JLabel {
 
     public TopLabel(String text) {
         super(text);
-        setFont(new Font("Arial Black", Font.BOLD, 20));
-        setBackground(Color.WHITE);
+        setFont(new Font("Consolas", Font.BOLD, 23));
     }
 }

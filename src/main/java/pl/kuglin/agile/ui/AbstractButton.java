@@ -21,11 +21,11 @@ public abstract class AbstractButton extends JButton {
 
     protected void setDefault() {
         setSize(20, 20);
-        setFont(new Font("Georgia", Font.BOLD, 12));
-        setBackground(new Color(208, 206, 77));
+        setFont(new Font("Consolas", Font.BOLD, 13));
+        setBackground(new Color(41, 142, 0));
         setBorderPainted(false);
         setFocusPainted(false);
-        setForeground(new Color(0, 0, 0));
+        setForeground(new Color(255, 255, 255));
     }
 
     protected abstract void setUp();

@@ -24,6 +24,7 @@ public class InfoDialog extends JDialog {
         JTextArea infoText = new JTextArea(text);
         infoText.setLineWrap(true);
         infoText.setEditable(false);
+        infoText.setFont(new Font("Georgia", Font.PLAIN, 13));
         textPanel.add(infoText);
         textPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 
