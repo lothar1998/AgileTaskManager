@@ -1,18 +1,30 @@
 package pl.kuglin.agile.ui;
 
 import javax.swing.*;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class AbstractTable extends JTable {
+
+    protected TableModelListener listener;
+    protected Set<Integer> rowsEditedId;
 
     public AbstractTable() {
         super(new DefaultTableModel());
         setUp();
+        rowsEditedId = new HashSet<>();
+        setUpTableModeListener();
+        dataModel.addTableModelListener(listener);
     }
 
     public AbstractTable(DefaultTableModel tableModel) {
         super(tableModel);
         setUp();
+        rowsEditedId = new HashSet<>();
+        setUpTableModeListener();
+        dataModel.addTableModelListener(listener);
     }
 
     protected void addColumn(String columnName){
@@ -24,4 +36,10 @@ public abstract class AbstractTable extends JTable {
     }
 
     protected abstract void setUp();
+
+    protected abstract void setUpTableModeListener();
+
+    public Set<Integer> getRowsEditedId() {
+        return rowsEditedId;
+    }
 }

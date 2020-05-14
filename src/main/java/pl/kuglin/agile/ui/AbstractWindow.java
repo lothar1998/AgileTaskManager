@@ -3,8 +3,6 @@ package pl.kuglin.agile.ui;
 import pl.kuglin.agile.RepositoryPack;
 import pl.kuglin.agile.reactive.ActionRunnerFactory;
 import pl.kuglin.agile.reactive.CallableRunnerFactory;
-import pl.kuglin.agile.ui.label.TopLabel;
-import pl.kuglin.agile.ui.panel.BoxPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,13 +21,15 @@ public abstract class AbstractWindow extends JFrame {
 
     protected AbstractButton backButton;
     protected AbstractButton getMoreButton;
-    protected AbstractButton saveButton;
+    protected AbstractButton updateButton;
     protected JPanel tablePanel;
     protected JScrollPane tableScrollPane;
-    protected JTable table;
+    protected AbstractTable table;
     protected JPanel topTextPanel;
     protected JLabel topLabel;
 
+    private Integer projectId;
+    private Integer sprintId;
 
     public AbstractWindow(String title) {
         super(title);
@@ -75,8 +75,8 @@ public abstract class AbstractWindow extends JFrame {
         return getMoreButton;
     }
 
-    public AbstractButton getSaveButton() {
-        return saveButton;
+    public AbstractButton getUpdateButton() {
+        return updateButton;
     }
 
     public JPanel getTablePanel() {
@@ -91,15 +91,31 @@ public abstract class AbstractWindow extends JFrame {
         this.tableScrollPane = tableScrollPane;
     }
 
-    public JTable getTable() {
+    public AbstractTable getTable() {
         return table;
     }
 
-    public void setTable(JTable table) {
+    public void setTable(AbstractTable table) {
         this.table = table;
     }
 
     public JLabel getTopLabel() {
         return topLabel;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public Integer getSprintId() {
+        return sprintId;
+    }
+
+    public void setSprintId(Integer sprintId) {
+        this.sprintId = sprintId;
     }
 }

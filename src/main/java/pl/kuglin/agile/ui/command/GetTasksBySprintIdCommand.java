@@ -3,6 +3,7 @@ package pl.kuglin.agile.ui.command;
 import pl.kuglin.agile.persistence.entities.ProgressEntity;
 import pl.kuglin.agile.persistence.entities.TaskEntity;
 import pl.kuglin.agile.ui.AbstractWindow;
+import pl.kuglin.agile.ui.command.strategy.UpdateTasksStrategy;
 import pl.kuglin.agile.ui.table.TaskTable;
 import pl.kuglin.agile.ui.window.ErrorDialog;
 
@@ -51,11 +52,15 @@ public class GetTasksBySprintIdCommand extends MainWindowCommand {
 
                     removeAllActionListeners(window.getBackButton());
                     removeAllActionListeners(window.getGetMoreButton());
+                    removeAllActionListeners(window.getUpdateButton());
                     window.getBackButton().addActionListener(a -> new GetSprintsByProjectIdCommand(window, projectId).execute());
+                    window.getUpdateButton().addActionListener(a -> new UpdateEditedTableCommand(window.getActionRunnerFactory(), window, new UpdateTasksStrategy()).execute());
                     window.getGetMoreButton().setEnabled(false);
                     window.getBackButton().setEnabled(true);
                     changeTopLabelText("Task", window);
                     addNewScrollPane(window.getTableScrollPane(), window);
+                    window.setProjectId(projectId);
+                    window.setSprintId(command.getResult());
                 }),
                 t -> SwingUtilities.invokeLater(() -> new ErrorDialog(t.toString(), window))
         );

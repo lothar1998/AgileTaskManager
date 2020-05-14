@@ -2,6 +2,7 @@ package pl.kuglin.agile.ui.command;
 
 import pl.kuglin.agile.ui.AbstractTable;
 import pl.kuglin.agile.ui.AbstractWindow;
+import pl.kuglin.agile.ui.command.strategy.UpdateProjectsStrategy;
 import pl.kuglin.agile.ui.table.ProjectTable;
 import pl.kuglin.agile.ui.window.ErrorDialog;
 
@@ -26,8 +27,12 @@ public class GetAllProjectsCommand extends MainWindowCommand implements Command{
                         window.getGetMoreButton().addActionListener(a -> new GetSprintsByProjectIdCommand(window).execute());
                         window.getBackButton().setEnabled(false);
                         removeAllActionListeners(window.getBackButton());
+                        removeAllActionListeners(window.getUpdateButton());
+                        window.getUpdateButton().addActionListener(a -> new UpdateEditedTableCommand(window.getActionRunnerFactory(), window, new UpdateProjectsStrategy()).execute());
                         changeTopLabelText("Project", window);
                         addNewScrollPane(window.getTableScrollPane(), window);
+                        window.setProjectId(null);
+                        window.setSprintId(null);
                     }),
                 t -> SwingUtilities.invokeLater(() -> new ErrorDialog(t.toString(), window))
         );

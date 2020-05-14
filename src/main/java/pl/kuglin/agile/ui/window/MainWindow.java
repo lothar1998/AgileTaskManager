@@ -6,7 +6,7 @@ import pl.kuglin.agile.reactive.CallableRunnerFactory;
 import pl.kuglin.agile.ui.AbstractWindow;
 import pl.kuglin.agile.ui.button.BackButton;
 import pl.kuglin.agile.ui.button.GetMoreButton;
-import pl.kuglin.agile.ui.button.SaveButton;
+import pl.kuglin.agile.ui.button.UpdateButton;
 import pl.kuglin.agile.ui.command.GetAllProjectsCommand;
 import pl.kuglin.agile.ui.label.TopLabel;
 import pl.kuglin.agile.ui.panel.BoxPanel;
@@ -57,13 +57,13 @@ public class MainWindow extends AbstractWindow {
             backButton = new BackButton(a -> {});
             backButton.setEnabled(false);
             getMoreButton = new GetMoreButton(a -> {});
-            saveButton = new SaveButton(a -> {});
+            updateButton = new UpdateButton(a -> {});
 
             buttonPanel.add(backButton);
             buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
             buttonPanel.add(getMoreButton);
             buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-            buttonPanel.add(saveButton);
+            buttonPanel.add(updateButton);
 
         mainPanel.add(buttonPanel);
 

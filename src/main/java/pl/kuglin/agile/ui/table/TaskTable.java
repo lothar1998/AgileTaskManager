@@ -3,6 +3,7 @@ package pl.kuglin.agile.ui.table;
 import pl.kuglin.agile.ui.AbstractTable;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
@@ -26,6 +27,14 @@ public class TaskTable extends AbstractTable {
 
         comboBox = new JComboBox<>();
         progressColumn.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+
+    @Override
+    protected void setUpTableModeListener() {
+        listener = e -> {
+            if(e.getType() != TableModelEvent.INSERT)
+                rowsEditedId.add(e.getFirstRow());
+        };
     }
 
     @Override

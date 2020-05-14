@@ -4,11 +4,11 @@ import pl.kuglin.agile.ui.AbstractButton;
 
 import java.awt.event.ActionListener;
 
-public class SaveButton extends AbstractButton {
+public class UpdateButton extends AbstractButton {
 
-    private static final String BUTTON_MESSAGE = "Save";
+    private static final String BUTTON_MESSAGE = "Update";
 
-    public SaveButton(ActionListener action){
+    public UpdateButton(ActionListener action){
         super(BUTTON_MESSAGE, action);
     }
 
