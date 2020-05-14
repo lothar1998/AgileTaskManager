@@ -4,10 +4,13 @@ import pl.kuglin.agile.persistence.RepositoryPack;
 import pl.kuglin.agile.reactive.ActionRunnerFactory;
 import pl.kuglin.agile.reactive.CallableRunnerFactory;
 import pl.kuglin.agile.ui.AbstractWindow;
+import pl.kuglin.agile.ui.button.AddButton;
 import pl.kuglin.agile.ui.button.BackButton;
 import pl.kuglin.agile.ui.button.GetMoreButton;
 import pl.kuglin.agile.ui.button.UpdateButton;
+import pl.kuglin.agile.ui.command.AddNewItemToTableCommand;
 import pl.kuglin.agile.ui.command.GetAllProjectsCommand;
+import pl.kuglin.agile.ui.command.strategy.AddProjectStrategy;
 import pl.kuglin.agile.ui.label.TopLabel;
 import pl.kuglin.agile.ui.panel.BoxPanel;
 import pl.kuglin.agile.ui.table.ProjectTable;
@@ -61,12 +64,16 @@ public class MainWindow extends AbstractWindow {
         });
         updateButton = new UpdateButton(a -> {
         });
+        addNewItemButton = new AddButton(a -> {
+        });
 
         buttonPanel.add(backButton);
         buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         buttonPanel.add(getMoreButton);
         buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         buttonPanel.add(updateButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+        buttonPanel.add(addNewItemButton);
 
         mainPanel.add(buttonPanel);
 

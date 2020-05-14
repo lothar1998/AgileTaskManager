@@ -40,8 +40,9 @@ public class DecisionDialog extends JDialog {
                 onYes.accept(window);
             } catch (SQLException exception) {
                 new ErrorDialog(exception.toString(), window);
+            } finally {
+                this.dispose();
             }
-            this.dispose();
         });
         JButton cancelButton = new CancelButton(a -> {
             this.dispose();

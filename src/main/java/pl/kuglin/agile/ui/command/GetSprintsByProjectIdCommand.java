@@ -2,6 +2,7 @@ package pl.kuglin.agile.ui.command;
 
 import pl.kuglin.agile.ui.AbstractTable;
 import pl.kuglin.agile.ui.AbstractWindow;
+import pl.kuglin.agile.ui.command.strategy.AddSprintStrategy;
 import pl.kuglin.agile.ui.command.strategy.UpdateSprintsStrategy;
 import pl.kuglin.agile.ui.table.SprintTable;
 import pl.kuglin.agile.ui.window.ErrorDialog;
@@ -39,9 +40,11 @@ public class GetSprintsByProjectIdCommand extends MainWindowCommand implements C
                     removeAllActionListeners(window.getBackButton());
                     removeAllActionListeners(window.getGetMoreButton());
                     removeAllActionListeners(window.getUpdateButton());
+                    removeAllActionListeners(window.getAddNewItemButton());
                     window.getBackButton().addActionListener(a -> new GetAllProjectsCommand(window).execute());
                     window.getGetMoreButton().addActionListener(a -> new GetTasksBySprintIdCommand(projectId, window).execute());
                     window.getUpdateButton().addActionListener(a -> new UpdateEditedTableCommand(window, new UpdateSprintsStrategy()).execute());
+                    window.getAddNewItemButton().addActionListener(a -> new AddNewItemToTableCommand(window, new AddSprintStrategy()).execute());
                     window.getGetMoreButton().setEnabled(true);
                     window.getBackButton().setEnabled(true);
                     changeTopLabelText("Sprint", window);

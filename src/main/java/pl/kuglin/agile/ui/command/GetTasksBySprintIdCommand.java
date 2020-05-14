@@ -3,6 +3,7 @@ package pl.kuglin.agile.ui.command;
 import pl.kuglin.agile.persistence.entities.ProgressEntity;
 import pl.kuglin.agile.persistence.entities.TaskEntity;
 import pl.kuglin.agile.ui.AbstractWindow;
+import pl.kuglin.agile.ui.command.strategy.AddTaskStrategy;
 import pl.kuglin.agile.ui.command.strategy.UpdateTasksStrategy;
 import pl.kuglin.agile.ui.table.TaskTable;
 import pl.kuglin.agile.ui.window.ErrorDialog;
@@ -53,8 +54,10 @@ public class GetTasksBySprintIdCommand extends MainWindowCommand {
                     removeAllActionListeners(window.getBackButton());
                     removeAllActionListeners(window.getGetMoreButton());
                     removeAllActionListeners(window.getUpdateButton());
+                    removeAllActionListeners(window.getAddNewItemButton());
                     window.getBackButton().addActionListener(a -> new GetSprintsByProjectIdCommand(window, projectId).execute());
                     window.getUpdateButton().addActionListener(a -> new UpdateEditedTableCommand(window, new UpdateTasksStrategy()).execute());
+                    window.getAddNewItemButton().addActionListener(a -> new AddNewItemToTableCommand(window, new AddTaskStrategy()).execute());
                     window.getGetMoreButton().setEnabled(false);
                     window.getBackButton().setEnabled(true);
                     changeTopLabelText("Task", window);

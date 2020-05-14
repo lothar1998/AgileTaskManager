@@ -22,6 +22,7 @@ public abstract class AbstractWindow extends JFrame {
     protected AbstractButton backButton;
     protected AbstractButton getMoreButton;
     protected AbstractButton updateButton;
+    protected AbstractButton addNewItemButton;
     protected JPanel tablePanel;
     protected JScrollPane tableScrollPane;
     protected AbstractTable table;
@@ -77,6 +78,10 @@ public abstract class AbstractWindow extends JFrame {
 
     public AbstractButton getUpdateButton() {
         return updateButton;
+    }
+
+    public AbstractButton getAddNewItemButton() {
+        return addNewItemButton;
     }
 
     public JPanel getTablePanel() {

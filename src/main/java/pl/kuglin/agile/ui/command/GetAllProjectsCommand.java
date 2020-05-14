@@ -2,6 +2,7 @@ package pl.kuglin.agile.ui.command;
 
 import pl.kuglin.agile.ui.AbstractTable;
 import pl.kuglin.agile.ui.AbstractWindow;
+import pl.kuglin.agile.ui.command.strategy.AddProjectStrategy;
 import pl.kuglin.agile.ui.command.strategy.UpdateProjectsStrategy;
 import pl.kuglin.agile.ui.table.ProjectTable;
 import pl.kuglin.agile.ui.window.ErrorDialog;
@@ -28,7 +29,9 @@ public class GetAllProjectsCommand extends MainWindowCommand implements Command 
                     window.getBackButton().setEnabled(false);
                     removeAllActionListeners(window.getBackButton());
                     removeAllActionListeners(window.getUpdateButton());
+                    removeAllActionListeners(window.getAddNewItemButton());
                     window.getUpdateButton().addActionListener(a -> new UpdateEditedTableCommand(window, new UpdateProjectsStrategy()).execute());
+                    window.getAddNewItemButton().addActionListener(a -> new AddNewItemToTableCommand(window, new AddProjectStrategy()).execute());
                     changeTopLabelText("Project", window);
                     addNewScrollPane(window.getTableScrollPane(), window);
                     window.setProjectId(null);
