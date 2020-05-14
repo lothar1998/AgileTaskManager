@@ -31,7 +31,7 @@ public class GetTasksBySprintIdCommand extends MainWindowCommand {
                     GetSelectedRowIdentifierCommand command = new GetSelectedRowIdentifierCommand(window);
                     command.execute();
 
-                    TaskTable table = (TaskTable)setNewTable(window, new TaskTable());
+                    TaskTable table = (TaskTable)setNewTable(window, new TaskTable(window));
 
                     JComboBox<String> comboBox = table.getComboBox();
                     List<ProgressEntity> progresses = new LinkedList<>();
@@ -54,7 +54,7 @@ public class GetTasksBySprintIdCommand extends MainWindowCommand {
                     removeAllActionListeners(window.getGetMoreButton());
                     removeAllActionListeners(window.getUpdateButton());
                     window.getBackButton().addActionListener(a -> new GetSprintsByProjectIdCommand(window, projectId).execute());
-                    window.getUpdateButton().addActionListener(a -> new UpdateEditedTableCommand(window.getActionRunnerFactory(), window, new UpdateTasksStrategy()).execute());
+                    window.getUpdateButton().addActionListener(a -> new UpdateEditedTableCommand(window, new UpdateTasksStrategy()).execute());
                     window.getGetMoreButton().setEnabled(false);
                     window.getBackButton().setEnabled(true);
                     changeTopLabelText("Task", window);

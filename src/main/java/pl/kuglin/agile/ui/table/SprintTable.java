@@ -1,11 +1,17 @@
 package pl.kuglin.agile.ui.table;
 
 import pl.kuglin.agile.ui.AbstractTable;
+import pl.kuglin.agile.ui.AbstractWindow;
+import pl.kuglin.agile.ui.popup.SprintTablePopup;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableColumnModel;
 
 public class SprintTable extends AbstractTable {
+
+    public SprintTable(AbstractWindow window) {
+        super(window);
+    }
 
     @Override
     protected void setUp() {
@@ -17,6 +23,7 @@ public class SprintTable extends AbstractTable {
         columnModel.getColumn(0).setPreferredWidth(20);
         columnModel.getColumn(1).setPreferredWidth(20);
         columnModel.getColumn(2).setPreferredWidth(800);
+        setComponentPopupMenu(new SprintTablePopup(window));
     }
 
     @Override

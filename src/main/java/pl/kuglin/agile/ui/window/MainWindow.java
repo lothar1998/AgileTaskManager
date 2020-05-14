@@ -42,7 +42,7 @@ public class MainWindow extends AbstractWindow {
 
             tablePanel = new BoxPanel(BoxPanel.Axis.X_AXIS);
 
-            table = new ProjectTable();
+            table = new ProjectTable(this);
             tableScrollPane = new JScrollPane(table);
 
             tablePanel.add(tableScrollPane);

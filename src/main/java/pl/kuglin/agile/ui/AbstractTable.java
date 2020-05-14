@@ -8,19 +8,22 @@ import java.util.Set;
 
 public abstract class AbstractTable extends JTable {
 
+    protected AbstractWindow window;
     protected TableModelListener listener;
     protected Set<Integer> rowsEditedId;
 
-    public AbstractTable() {
+    public AbstractTable(AbstractWindow window) {
         super(new DefaultTableModel());
+        this.window = window;
         setUp();
         rowsEditedId = new HashSet<>();
         setUpTableModeListener();
         dataModel.addTableModelListener(listener);
     }
 
-    public AbstractTable(DefaultTableModel tableModel) {
+    public AbstractTable(AbstractWindow window, DefaultTableModel tableModel) {
         super(tableModel);
+        this.window = window;
         setUp();
         rowsEditedId = new HashSet<>();
         setUpTableModeListener();

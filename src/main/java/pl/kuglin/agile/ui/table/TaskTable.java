@@ -1,6 +1,8 @@
 package pl.kuglin.agile.ui.table;
 
 import pl.kuglin.agile.ui.AbstractTable;
+import pl.kuglin.agile.ui.AbstractWindow;
+import pl.kuglin.agile.ui.popup.TaskTablePopup;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -10,6 +12,10 @@ import javax.swing.table.TableColumnModel;
 public class TaskTable extends AbstractTable {
 
     private JComboBox<String> comboBox;
+
+    public TaskTable(AbstractWindow window) {
+        super(window);
+    }
 
     @Override
     protected void setUp() {
@@ -27,6 +33,7 @@ public class TaskTable extends AbstractTable {
 
         comboBox = new JComboBox<>();
         progressColumn.setCellEditor(new DefaultCellEditor(comboBox));
+        setComponentPopupMenu(new TaskTablePopup(window));
     }
 
     @Override

@@ -4,13 +4,12 @@ import pl.kuglin.agile.persistence.ConsumerSQL;
 import pl.kuglin.agile.ui.AbstractWindow;
 import pl.kuglin.agile.ui.window.ErrorDialog;
 
-
-public class UpdateEditedTableCommand extends MainWindowCommand{
+public class DeleteElementFromTableCommand extends MainWindowCommand{
 
     private AbstractWindow window;
     private ConsumerSQL<AbstractWindow> strategy;
 
-    public UpdateEditedTableCommand(AbstractWindow window, ConsumerSQL<AbstractWindow> strategy) {
+    public DeleteElementFromTableCommand(AbstractWindow window, ConsumerSQL<AbstractWindow> strategy) {
         this.window = window;
         this.strategy = strategy;
     }

@@ -34,14 +34,14 @@ public class GetSprintsByProjectIdCommand extends MainWindowCommand implements C
                         projectId = command.getResult();
                     }
 
-                    AbstractTable table = setNewTable(window, new SprintTable());
+                    AbstractTable table = setNewTable(window, new SprintTable(window));
                     list.stream().filter(s -> s.getProjectId().equals(projectId)).forEach(e -> table.addRow(e.getId(), e.getNo(), e.getName()));
                     removeAllActionListeners(window.getBackButton());
                     removeAllActionListeners(window.getGetMoreButton());
                     removeAllActionListeners(window.getUpdateButton());
                     window.getBackButton().addActionListener(a -> new GetAllProjectsCommand(window).execute());
                     window.getGetMoreButton().addActionListener(a -> new GetTasksBySprintIdCommand(projectId, window).execute());
-                    window.getUpdateButton().addActionListener(a -> new UpdateEditedTableCommand(window.getActionRunnerFactory(), window, new UpdateSprintsStrategy()).execute());
+                    window.getUpdateButton().addActionListener(a -> new UpdateEditedTableCommand(window, new UpdateSprintsStrategy()).execute());
                     window.getGetMoreButton().setEnabled(true);
                     window.getBackButton().setEnabled(true);
                     changeTopLabelText("Sprint", window);
