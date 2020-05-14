@@ -1,4 +1,4 @@
-package pl.kuglin.agile;
+package pl.kuglin.agile.persistence;
 
 import lombok.Data;
 import pl.kuglin.agile.persistence.CrudRepository;

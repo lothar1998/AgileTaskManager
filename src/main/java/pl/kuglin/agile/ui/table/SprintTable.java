@@ -29,15 +29,15 @@ public class SprintTable extends AbstractTable {
     @Override
     protected void setUpTableModeListener() {
         listener = e -> {
-            if(e.getType() != TableModelEvent.INSERT)
-                rowsEditedId.add(e.getFirstRow());
+            if (e.getType() == TableModelEvent.UPDATE)
+                rowsEditedId.add((int) window.getTable().getValueAt(e.getFirstRow(), 0));
         };
     }
 
 
     @Override
     public Class<?> getColumnClass(int column) {
-        if(column == 1)
+        if (column == 1)
             return Integer.class;
         else
             return super.getColumnClass(column);

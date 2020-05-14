@@ -28,7 +28,7 @@ public class ProgressRepository extends AbstractRepository implements ReadReposi
 
             ProgressEntity progressEntity = null;
 
-            if(result.next()){
+            if (result.next()) {
                 progressEntity = new ProgressEntity();
                 progressEntity.setId(result.getInt("id"));
                 progressEntity.setName(result.getString("name"));
@@ -51,7 +51,7 @@ public class ProgressRepository extends AbstractRepository implements ReadReposi
 
             List<ProgressEntity> progresses = new ArrayList<>();
 
-            while (result.next()){
+            while (result.next()) {
                 ProgressEntity progressEntity = new ProgressEntity();
                 progressEntity.setId(result.getInt("id"));
                 progressEntity.setName(result.getString("name"));

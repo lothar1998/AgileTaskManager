@@ -1,6 +1,6 @@
 package pl.kuglin.agile.ui.window;
 
-import pl.kuglin.agile.RepositoryPack;
+import pl.kuglin.agile.persistence.RepositoryPack;
 import pl.kuglin.agile.reactive.ActionRunnerFactory;
 import pl.kuglin.agile.reactive.CallableRunnerFactory;
 import pl.kuglin.agile.ui.AbstractWindow;
@@ -31,39 +31,42 @@ public class MainWindow extends AbstractWindow {
 
         mainPanel.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
 
-            topTextPanel = new BoxPanel(BoxPanel.Axis.X_AXIS);
+        topTextPanel = new BoxPanel(BoxPanel.Axis.X_AXIS);
 
-            topLabel = new TopLabel("Project");
+        topLabel = new TopLabel("Project");
 
-            topTextPanel.add(topLabel);
+        topTextPanel.add(topLabel);
 
         mainPanel.add(topTextPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 30)));
 
-            tablePanel = new BoxPanel(BoxPanel.Axis.X_AXIS);
+        tablePanel = new BoxPanel(BoxPanel.Axis.X_AXIS);
 
-            table = new ProjectTable(this);
-            tableScrollPane = new JScrollPane(table);
+        table = new ProjectTable(this);
+        tableScrollPane = new JScrollPane(table);
 
-            tablePanel.add(tableScrollPane);
+        tablePanel.add(tableScrollPane);
 
         mainPanel.add(tablePanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
-            JPanel buttonPanel = new BoxPanel(BoxPanel.Axis.X_AXIS);
+        JPanel buttonPanel = new BoxPanel(BoxPanel.Axis.X_AXIS);
 
-            //BUTTONS
+        //BUTTONS
 
-            backButton = new BackButton(a -> {});
-            backButton.setEnabled(false);
-            getMoreButton = new GetMoreButton(a -> {});
-            updateButton = new UpdateButton(a -> {});
+        backButton = new BackButton(a -> {
+        });
+        backButton.setEnabled(false);
+        getMoreButton = new GetMoreButton(a -> {
+        });
+        updateButton = new UpdateButton(a -> {
+        });
 
-            buttonPanel.add(backButton);
-            buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-            buttonPanel.add(getMoreButton);
-            buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-            buttonPanel.add(updateButton);
+        buttonPanel.add(backButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+        buttonPanel.add(getMoreButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+        buttonPanel.add(updateButton);
 
         mainPanel.add(buttonPanel);
 

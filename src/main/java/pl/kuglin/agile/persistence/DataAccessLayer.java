@@ -37,8 +37,7 @@ public class DataAccessLayer {
 
         } catch (SQLException ex) {
             handleEstablishConnectionException(ex);
-        }
-        finally {
+        } finally {
             closeConnection(conn);
         }
     }
@@ -78,14 +77,14 @@ public class DataAccessLayer {
         }
     }
 
-    enum ExceptionMessage{
+    enum ExceptionMessage {
 
         ESTABLISH_CONNECTION_ERROR("Cannot establish connection or execute SQL query"),
         CLOSE_CONNECTION_ERROR("Cannot close connection");
 
         private final String message;
 
-        ExceptionMessage(String message){
+        ExceptionMessage(String message) {
             this.message = message;
         }
 

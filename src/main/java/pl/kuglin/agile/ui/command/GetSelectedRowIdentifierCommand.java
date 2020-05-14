@@ -4,7 +4,7 @@ import pl.kuglin.agile.ui.AbstractWindow;
 
 import javax.swing.*;
 
-public class GetSelectedRowIdentifierCommand implements Command{
+public class GetSelectedRowIdentifierCommand implements Command {
 
     private final AbstractWindow window;
     private Integer result;
@@ -18,10 +18,10 @@ public class GetSelectedRowIdentifierCommand implements Command{
         JTable table = window.getTable();
         int selectedRow = table.getSelectedRow();
 
-        if(selectedRow < 0)
+        if (selectedRow < 0)
             throw new IllegalStateException("No row selected");
 
-        result = (int)table.getValueAt(selectedRow, 0);
+        result = (int) table.getValueAt(selectedRow, 0);
     }
 
     public Integer getResult() {

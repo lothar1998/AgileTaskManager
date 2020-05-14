@@ -19,7 +19,7 @@ public abstract class AbstractMenuItem extends JMenuItem {
         setDefault();
     }
 
-    protected void setDefault(){
+    protected void setDefault() {
         setFont(new Font("Georgia", Font.BOLD, 12));
         setBackground(new Color(208, 206, 77));
         setBorderPainted(false);

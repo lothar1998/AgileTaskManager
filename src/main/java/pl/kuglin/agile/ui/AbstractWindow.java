@@ -1,6 +1,6 @@
 package pl.kuglin.agile.ui;
 
-import pl.kuglin.agile.RepositoryPack;
+import pl.kuglin.agile.persistence.RepositoryPack;
 import pl.kuglin.agile.reactive.ActionRunnerFactory;
 import pl.kuglin.agile.reactive.CallableRunnerFactory;
 
@@ -44,7 +44,7 @@ public abstract class AbstractWindow extends JFrame {
         setDefault();
     }
 
-    protected void setDefault(){
+    protected void setDefault() {
         setLocationRelativeTo(null);
         setBackground(Color.WHITE);
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);

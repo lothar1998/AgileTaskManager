@@ -8,7 +8,7 @@ import pl.kuglin.agile.ui.window.ErrorDialog;
 
 import javax.swing.*;
 
-public class GetSprintsByProjectIdCommand extends MainWindowCommand implements Command{
+public class GetSprintsByProjectIdCommand extends MainWindowCommand implements Command {
 
     private final AbstractWindow window;
     private Integer projectId;
@@ -28,7 +28,7 @@ public class GetSprintsByProjectIdCommand extends MainWindowCommand implements C
         window.getCallableRunnerFactory().createAndRun(
                 window.getRepositoryPack().getSprintRepository()::getAll,
                 list -> SwingUtilities.invokeLater(() -> {
-                    if(projectId == null) {
+                    if (projectId == null) {
                         GetSelectedRowIdentifierCommand command = new GetSelectedRowIdentifierCommand(window);
                         command.execute();
                         projectId = command.getResult();

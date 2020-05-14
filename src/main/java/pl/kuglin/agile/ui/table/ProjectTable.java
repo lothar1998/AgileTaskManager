@@ -29,8 +29,8 @@ public class ProjectTable extends AbstractTable {
     @Override
     protected void setUpTableModeListener() {
         listener = e -> {
-            if(e.getType() != TableModelEvent.INSERT)
-                rowsEditedId.add(e.getFirstRow());
+            if (e.getType() == TableModelEvent.UPDATE)
+                rowsEditedId.add((int) window.getTable().getValueAt(e.getFirstRow(), 0));
         };
     }
 

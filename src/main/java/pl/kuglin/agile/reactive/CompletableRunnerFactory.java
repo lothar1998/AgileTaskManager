@@ -1,9 +1,9 @@
 package pl.kuglin.agile.reactive;
 
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import io.reactivex.rxjava3.functions.*;
 
 public class CompletableRunnerFactory implements ActionRunnerFactory {
     @Override

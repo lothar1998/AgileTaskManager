@@ -8,7 +8,7 @@ public class UpdateButton extends AbstractButton {
 
     private static final String BUTTON_MESSAGE = "Update";
 
-    public UpdateButton(ActionListener action){
+    public UpdateButton(ActionListener action) {
         super(BUTTON_MESSAGE, action);
     }
 

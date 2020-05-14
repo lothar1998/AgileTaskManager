@@ -5,5 +5,6 @@ import java.util.List;
 
 public interface ReadRepository<T, S> {
     T get(S arg) throws SQLException;
+
     List<T> getAll() throws SQLException;
 }

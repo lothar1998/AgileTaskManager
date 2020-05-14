@@ -7,7 +7,7 @@ import io.lettuce.core.api.sync.RedisCommands;
 
 import java.util.Properties;
 
-public class LettuceRedisClient implements RedisConnectionClient<String, String>{
+public class LettuceRedisClient implements RedisConnectionClient<String, String> {
     private static final String URL_PROPERTY = "redis.url";
     private static final String EXPIRE_TIME_PROPERTY = "redis.expire";
 
@@ -22,7 +22,7 @@ public class LettuceRedisClient implements RedisConnectionClient<String, String>
         expiredTime = 0;
     }
 
-    public LettuceRedisClient(Properties properties){
+    public LettuceRedisClient(Properties properties) {
         String url = properties.getProperty(URL_PROPERTY);
         expiredTime = Long.parseLong(properties.getProperty(EXPIRE_TIME_PROPERTY));
         client = RedisClient.create(url);
@@ -31,29 +31,29 @@ public class LettuceRedisClient implements RedisConnectionClient<String, String>
         asyncCommand = connection.async();
     }
 
-    public void set(String key, String value){
+    public void set(String key, String value) {
         command.set(key, value);
         synchronized (this) {
             command.expire(key, expiredTime);
         }
     }
 
-    public void delete(String key){
+    public void delete(String key) {
         command.del(key);
     }
 
-    public String get(String key){
+    public String get(String key) {
         return command.get(key);
     }
 
-    public void asyncSet(String key, String value){
+    public void asyncSet(String key, String value) {
         asyncCommand.set(key, value);
-        synchronized (this){
+        synchronized (this) {
             asyncCommand.expire(key, expiredTime);
         }
     }
 
-    public void closeClient(){
+    public void closeClient() {
         connection.close();
         client.shutdown();
     }

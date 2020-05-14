@@ -4,11 +4,10 @@ import pl.kuglin.agile.ui.AbstractButton;
 
 import java.awt.event.ActionListener;
 
-public class OkButton extends AbstractButton {
+public class CancelButton extends AbstractButton {
+    private static final String BUTTON_MESSAGE = "Cancel";
 
-    private static final String BUTTON_MESSAGE = "OK";
-
-    public OkButton(ActionListener action) {
+    public CancelButton(ActionListener action) {
         super(BUTTON_MESSAGE, action);
     }
 

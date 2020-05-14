@@ -7,11 +7,11 @@ import pl.kuglin.agile.ui.panel.BoxPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class ErrorDialog extends JDialog {
+public class InfoDialog extends JDialog {
 
-    private static final String WINDOW_NAME = "ERROR";
+    private static final String WINDOW_NAME = "INFO";
 
-    public ErrorDialog(String text, AbstractWindow window) {
+    public InfoDialog(String text, AbstractWindow window) {
         super(window, WINDOW_NAME);
 
         JPanel mainPanel = new BoxPanel(BoxPanel.Axis.Y_AXIS);
@@ -32,10 +32,8 @@ public class ErrorDialog extends JDialog {
 
         JPanel buttonPanel = new BoxPanel(BoxPanel.Axis.X_AXIS);
 
-        JButton okButton = new OkButton(a -> {
-            this.dispose();
-            window.dispose();
-        });
+        JButton okButton = new OkButton(a -> this.dispose());
+
         buttonPanel.add(okButton);
 
         mainPanel.add(buttonPanel);
@@ -47,4 +45,5 @@ public class ErrorDialog extends JDialog {
         setResizable(false);
         setVisible(true);
     }
+
 }

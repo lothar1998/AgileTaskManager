@@ -19,7 +19,7 @@ public abstract class AbstractButton extends JButton {
         setDefault();
     }
 
-    protected void setDefault(){
+    protected void setDefault() {
         setSize(20, 20);
         setFont(new Font("Georgia", Font.BOLD, 12));
         setBackground(new Color(208, 206, 77));

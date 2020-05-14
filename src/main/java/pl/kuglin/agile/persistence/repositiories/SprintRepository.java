@@ -31,7 +31,7 @@ public class SprintRepository extends AbstractRepository implements CrudReposito
 
             ResultSet resultKey = statement.getGeneratedKeys();
 
-            if(resultKey.next())
+            if (resultKey.next())
                 arg.setId(resultKey.getInt("id"));
 
             statement.close();
@@ -79,7 +79,7 @@ public class SprintRepository extends AbstractRepository implements CrudReposito
 
             SprintEntity sprintEntity = null;
 
-            if(result.next()){
+            if (result.next()) {
                 sprintEntity = new SprintEntity();
                 sprintEntity.setId(result.getInt("id"));
                 sprintEntity.setName(result.getString("name"));
@@ -103,7 +103,7 @@ public class SprintRepository extends AbstractRepository implements CrudReposito
 
             List<SprintEntity> entityList = new ArrayList<>();
 
-            while(result.next()){
+            while (result.next()) {
                 SprintEntity sprintEntity = new SprintEntity();
                 sprintEntity.setId(result.getInt("id"));
                 sprintEntity.setName(result.getString("name"));

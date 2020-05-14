@@ -29,7 +29,7 @@ public class ProjectRepository extends AbstractRepository implements CrudReposit
 
             ResultSet resultKey = statement.getGeneratedKeys();
 
-            if(resultKey.next())
+            if (resultKey.next())
                 arg.setId(resultKey.getInt("id"));
 
             statement.close();
@@ -75,7 +75,7 @@ public class ProjectRepository extends AbstractRepository implements CrudReposit
 
             ProjectEntity projectEntity = null;
 
-            if(result.next()){
+            if (result.next()) {
                 projectEntity = new ProjectEntity();
                 projectEntity.setId(result.getInt("id"));
                 projectEntity.setName(result.getString("name"));
@@ -97,7 +97,7 @@ public class ProjectRepository extends AbstractRepository implements CrudReposit
 
             List<ProjectEntity> projectEntities = new ArrayList<>();
 
-            while (result.next()){
+            while (result.next()) {
                 ProjectEntity projectEntity = new ProjectEntity();
                 projectEntity.setId(result.getInt("id"));
                 projectEntity.setName(result.getString("name"));

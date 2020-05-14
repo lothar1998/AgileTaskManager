@@ -31,7 +31,7 @@ public class GetTasksBySprintIdCommand extends MainWindowCommand {
                     GetSelectedRowIdentifierCommand command = new GetSelectedRowIdentifierCommand(window);
                     command.execute();
 
-                    TaskTable table = (TaskTable)setNewTable(window, new TaskTable(window));
+                    TaskTable table = (TaskTable) setNewTable(window, new TaskTable(window));
 
                     JComboBox<String> comboBox = table.getComboBox();
                     List<ProgressEntity> progresses = new LinkedList<>();
@@ -40,12 +40,12 @@ public class GetTasksBySprintIdCommand extends MainWindowCommand {
                     } catch (SQLException t) {
                         new ErrorDialog(t.toString(), window);
                     }
-                    for(ProgressEntity p : progresses)
+                    for (ProgressEntity p : progresses)
                         comboBox.addItem(p.getName());
 
                     List<TaskEntity> tasks = list.stream().filter(t -> t.getSprintId().equals(command.getResult())).collect(Collectors.toList());
 
-                    for(TaskEntity t : tasks){
+                    for (TaskEntity t : tasks) {
                         String progressName = progresses.stream().filter(p -> p.getId().equals(t.getProgressId())).map(ProgressEntity::getName).iterator().next();
                         table.addRow(t.getId(), t.getDescription(), t.getEstimation(), progressName);
                     }

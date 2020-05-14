@@ -8,7 +8,7 @@ import pl.kuglin.agile.ui.window.ErrorDialog;
 
 import javax.swing.*;
 
-public class GetAllProjectsCommand extends MainWindowCommand implements Command{
+public class GetAllProjectsCommand extends MainWindowCommand implements Command {
 
     private final AbstractWindow window;
 
@@ -21,19 +21,19 @@ public class GetAllProjectsCommand extends MainWindowCommand implements Command{
         window.getCallableRunnerFactory().createAndRun(
                 window.getRepositoryPack().getProjectRepository()::getAll,
                 list -> SwingUtilities.invokeLater(() -> {
-                        AbstractTable table = setNewTable(window, new ProjectTable(window));
-                        list.forEach(e -> table.addRow(e.getId(), e.getName(), e.getDescription()));
-                        removeAllActionListeners(window.getGetMoreButton());
-                        window.getGetMoreButton().addActionListener(a -> new GetSprintsByProjectIdCommand(window).execute());
-                        window.getBackButton().setEnabled(false);
-                        removeAllActionListeners(window.getBackButton());
-                        removeAllActionListeners(window.getUpdateButton());
-                        window.getUpdateButton().addActionListener(a -> new UpdateEditedTableCommand(window, new UpdateProjectsStrategy()).execute());
-                        changeTopLabelText("Project", window);
-                        addNewScrollPane(window.getTableScrollPane(), window);
-                        window.setProjectId(null);
-                        window.setSprintId(null);
-                    }),
+                    AbstractTable table = setNewTable(window, new ProjectTable(window));
+                    list.forEach(e -> table.addRow(e.getId(), e.getName(), e.getDescription()));
+                    removeAllActionListeners(window.getGetMoreButton());
+                    window.getGetMoreButton().addActionListener(a -> new GetSprintsByProjectIdCommand(window).execute());
+                    window.getBackButton().setEnabled(false);
+                    removeAllActionListeners(window.getBackButton());
+                    removeAllActionListeners(window.getUpdateButton());
+                    window.getUpdateButton().addActionListener(a -> new UpdateEditedTableCommand(window, new UpdateProjectsStrategy()).execute());
+                    changeTopLabelText("Project", window);
+                    addNewScrollPane(window.getTableScrollPane(), window);
+                    window.setProjectId(null);
+                    window.setSprintId(null);
+                }),
                 t -> SwingUtilities.invokeLater(() -> new ErrorDialog(t.toString(), window))
         );
     }

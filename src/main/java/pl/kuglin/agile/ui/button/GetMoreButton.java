@@ -8,7 +8,7 @@ public class GetMoreButton extends AbstractButton {
 
     private static final String BUTTON_MESSAGE = "Get more ...";
 
-    public GetMoreButton(ActionListener action){
+    public GetMoreButton(ActionListener action) {
         super(BUTTON_MESSAGE, action);
     }
 

@@ -8,16 +8,16 @@ import java.util.List;
 
 public class RedisCacheProxy<T extends Identifiable<S>, S> implements CrudRepository<T, S> {
 
-    private RedisConnectionClient<String, String> cacheClient;
-    private CrudRepository<T, S> repository;
     private final Class<T> classType;
     private final Gson jsonParser = new Gson();
+    private RedisConnectionClient<String, String> cacheClient;
+    private CrudRepository<T, S> repository;
 
     RedisCacheProxy(Class<T> classType) {
         this.classType = classType;
     }
 
-    public RedisCacheProxy(RedisConnectionClient<String, String> client, CrudRepository<T, S> repository, Class<T> classType){
+    public RedisCacheProxy(RedisConnectionClient<String, String> client, CrudRepository<T, S> repository, Class<T> classType) {
         this.cacheClient = client;
         this.repository = repository;
         this.classType = classType;
@@ -52,7 +52,7 @@ public class RedisCacheProxy<T extends Identifiable<S>, S> implements CrudReposi
         String key = generateKey(identifier);
         String jsonObject = cacheClient.get(key);
 
-        if(jsonObject != null)
+        if (jsonObject != null)
             return jsonParser.fromJson(jsonObject, classType);
 
         T result = repository.get(identifier);
@@ -66,7 +66,7 @@ public class RedisCacheProxy<T extends Identifiable<S>, S> implements CrudReposi
         List<T> allElements = repository.getAll();
 
         String key;
-        for(T element : allElements) {
+        for (T element : allElements) {
             key = generateKey(element);
             cacheClient.asyncSet(key, jsonParser.toJson(element));
         }
@@ -74,22 +74,22 @@ public class RedisCacheProxy<T extends Identifiable<S>, S> implements CrudReposi
         return allElements;
     }
 
-    private String generateKey(T element){
+    private String generateKey(T element) {
         return generateKey(element.getIdentifier());
     }
 
-    private String generateKey(S identifier){
+    private String generateKey(S identifier) {
         return classType.getName() + identifier;
     }
 
-    private KeyValuePair generateKeyValuePair(T element){
+    private KeyValuePair generateKeyValuePair(T element) {
         String key = generateKey(element);
         String value = jsonParser.toJson(element);
 
         return new KeyValuePair(key, value);
     }
 
-    private static class KeyValuePair{
+    private static class KeyValuePair {
         private final String key;
         private final String value;
 

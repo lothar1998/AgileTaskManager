@@ -39,8 +39,8 @@ public class TaskTable extends AbstractTable {
     @Override
     protected void setUpTableModeListener() {
         listener = e -> {
-            if(e.getType() != TableModelEvent.INSERT)
-                rowsEditedId.add(e.getFirstRow());
+            if (e.getType() == TableModelEvent.UPDATE)
+                rowsEditedId.add((int) window.getTable().getValueAt(e.getFirstRow(), 0));
         };
     }
 
@@ -51,7 +51,7 @@ public class TaskTable extends AbstractTable {
 
     @Override
     public Class<?> getColumnClass(int column) {
-        if(column == 2)
+        if (column == 2)
             return Integer.class;
         else
             return super.getColumnClass(column);

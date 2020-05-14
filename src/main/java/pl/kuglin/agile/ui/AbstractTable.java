@@ -30,12 +30,12 @@ public abstract class AbstractTable extends JTable {
         dataModel.addTableModelListener(listener);
     }
 
-    protected void addColumn(String columnName){
-        ((DefaultTableModel)dataModel).addColumn(columnName);
+    protected void addColumn(String columnName) {
+        ((DefaultTableModel) dataModel).addColumn(columnName);
     }
 
-    public void addRow(Object... elements){
-        ((DefaultTableModel)dataModel).addRow(elements);
+    public void addRow(Object... elements) {
+        ((DefaultTableModel) dataModel).addRow(elements);
     }
 
     protected abstract void setUp();
