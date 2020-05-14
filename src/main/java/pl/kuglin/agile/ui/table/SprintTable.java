@@ -19,6 +19,14 @@ public class SprintTable extends AbstractTable {
     }
 
     @Override
+    public Class<?> getColumnClass(int column) {
+        if(column == 1)
+            return Integer.class;
+        else
+            return super.getColumnClass(column);
+    }
+
+    @Override
     public boolean isCellEditable(int row, int column) {
         return column != 0;
     }

@@ -1,11 +1,16 @@
 package pl.kuglin.agile.ui.command;
 
-import pl.kuglin.agile.ui.AbstractTable;
+import pl.kuglin.agile.persistence.entities.ProgressEntity;
+import pl.kuglin.agile.persistence.entities.TaskEntity;
 import pl.kuglin.agile.ui.AbstractWindow;
 import pl.kuglin.agile.ui.table.TaskTable;
 import pl.kuglin.agile.ui.window.ErrorDialog;
 
 import javax.swing.*;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GetTasksBySprintIdCommand extends MainWindowCommand {
 
@@ -25,8 +30,25 @@ public class GetTasksBySprintIdCommand extends MainWindowCommand {
                     GetSelectedRowIdentifierCommand command = new GetSelectedRowIdentifierCommand(window);
                     command.execute();
 
-                    AbstractTable table = setNewTable(window, new TaskTable());
-                    list.stream().filter(t -> t.getSprintId().equals(command.getResult())).forEach(e -> table.addRow(e.getId(), e.getDescription(), e.getEstimation(), e.getProgressId()));
+                    TaskTable table = (TaskTable)setNewTable(window, new TaskTable());
+
+                    JComboBox<String> comboBox = table.getComboBox();
+                    List<ProgressEntity> progresses = new LinkedList<>();
+                    try {
+                        progresses = window.getRepositoryPack().getProgressRepository().getAll();
+                    } catch (SQLException t) {
+                        new ErrorDialog(t.toString(), window);
+                    }
+                    for(ProgressEntity p : progresses)
+                        comboBox.addItem(p.getName());
+
+                    List<TaskEntity> tasks = list.stream().filter(t -> t.getSprintId().equals(command.getResult())).collect(Collectors.toList());
+
+                    for(TaskEntity t : tasks){
+                        String progressName = progresses.stream().filter(p -> p.getId().equals(t.getProgressId())).map(ProgressEntity::getName).iterator().next();
+                        table.addRow(t.getId(), t.getDescription(), t.getEstimation(), progressName);
+                    }
+
                     removeAllActionListeners(window.getBackButton());
                     removeAllActionListeners(window.getGetMoreButton());
                     window.getBackButton().addActionListener(a -> new GetSprintsByProjectIdCommand(window, projectId).execute());
