@@ -42,7 +42,6 @@ public class MainWindow extends AbstractWindow {
         topTextPanel.add(icon);
         topTextPanel.add(Box.createHorizontalGlue());
         topTextPanel.add(topLabel);
-        topTextPanel.add(Box.createRigidArea(new Dimension(20, 0)));
 
         mainPanel.add(topTextPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 30)));

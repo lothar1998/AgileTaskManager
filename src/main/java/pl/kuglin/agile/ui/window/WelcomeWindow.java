@@ -19,17 +19,12 @@ public class WelcomeWindow extends JFrame {
 
     private static final String WINDOW_NAME = "Agile Task Manager";
 
-    private final RepositoryPack repositoryPack;
-    private final CallableRunnerFactory callableRunner;
-    private final ActionRunnerFactory actionRunner;
 
-    public WelcomeWindow(RepositoryPack repositoryPack, CallableRunnerFactory callableRunnerFactory, ActionRunnerFactory actionRunnerFactory) {
+    public WelcomeWindow(RepositoryPack repositoryPack, CallableRunnerFactory callableRunner, ActionRunnerFactory actionRunner) {
         super(WINDOW_NAME);
-        this.repositoryPack = repositoryPack;
-        this.callableRunner = callableRunnerFactory;
-        this.actionRunner = actionRunnerFactory;
         setLocationRelativeTo(null);
         setResizable(false);
+        setBackground(Color.WHITE);
 
         JPanel mainPanel = new BoxPanel(BoxPanel.Axis.Y_AXIS);
 
