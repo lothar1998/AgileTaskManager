@@ -1,5 +1,7 @@
 package pl.kuglin.agile;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.kuglin.agile.persistence.CrudRepository;
 import pl.kuglin.agile.persistence.DataAccessLayer;
 import pl.kuglin.agile.persistence.ReadRepository;
@@ -18,7 +20,6 @@ import pl.kuglin.agile.reactive.ActionRunnerFactory;
 import pl.kuglin.agile.reactive.CallableRunnerFactory;
 import pl.kuglin.agile.reactive.CompletableRunnerFactory;
 import pl.kuglin.agile.reactive.SingleRunnerFactory;
-import pl.kuglin.agile.ui.window.MainWindow;
 import pl.kuglin.agile.ui.window.WelcomeWindow;
 import pl.kuglin.agile.utils.FilePropertyLoader;
 import pl.kuglin.agile.utils.PropertyLoader;
@@ -28,13 +29,23 @@ import java.io.FileNotFoundException;
 import java.util.Properties;
 
 public class AgileTaskManager {
+
+    private static Logger log = LoggerFactory.getLogger(AgileTaskManager.class);
+
     public static void main(String[] args) throws FileNotFoundException {
 
         PropertyLoader redisPropertiesLoader = new FilePropertyLoader("src/main/resources/redis.properties");
         redisPropertiesLoader.loadProperties();
         Properties redisProperties = redisPropertiesLoader.getProperties();
 
-        LettuceRedisClient client = new LettuceRedisClient(redisProperties);
+        LettuceRedisClient client;
+
+        try {
+            client = new LettuceRedisClient(redisProperties);
+        } catch (Exception ex){
+            log.error("{}", "Cannot connect to Redis Database", ex);
+            return;
+        }
 
         PropertyLoader postgresPropertyLoader = new FilePropertyLoader("src/main/resources/jdbc.properties");
         postgresPropertyLoader.loadProperties();
@@ -57,7 +68,6 @@ public class AgileTaskManager {
         ActionRunnerFactory actionRunner = new CompletableRunnerFactory();
 
         SwingUtilities.invokeLater(() -> new WelcomeWindow(repositoryPack, callableRunner, actionRunner));
-//        SwingUtilities.invokeLater(() -> new MainWindow(repositoryPack, callableRunner, actionRunner));
 
         Runtime.getRuntime().addShutdownHook(new Thread(client::closeClient));
     }

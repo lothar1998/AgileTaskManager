@@ -37,7 +37,7 @@ public class GetAllProjectsCommand extends MainWindowCommand implements Command 
                     window.setProjectId(null);
                     window.setSprintId(null);
                 }),
-                t -> SwingUtilities.invokeLater(() -> new ErrorDialog(t.toString(), window))
+                t -> SwingUtilities.invokeLater(() -> new ErrorDialog(t.getMessage(), window))
         );
     }
 }

@@ -1,5 +1,7 @@
 package pl.kuglin.agile.ui.command;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.kuglin.agile.persistence.entities.ProgressEntity;
 import pl.kuglin.agile.persistence.entities.TaskEntity;
 import pl.kuglin.agile.ui.AbstractWindow;
@@ -19,6 +21,8 @@ public class GetTasksBySprintIdCommand extends MainWindowCommand {
     private final AbstractWindow window;
     private final Integer projectId;
 
+    private static final Logger log = LoggerFactory.getLogger(GetTasksBySprintIdCommand.class);
+
     public GetTasksBySprintIdCommand(Integer projectId, AbstractWindow window) {
         this.window = window;
         this.projectId = projectId;
@@ -30,7 +34,12 @@ public class GetTasksBySprintIdCommand extends MainWindowCommand {
                 window.getRepositoryPack().getTaskRepository()::getAll,
                 list -> SwingUtilities.invokeLater(() -> {
                     GetSelectedRowIdentifierCommand command = new GetSelectedRowIdentifierCommand(window);
-                    command.execute();
+                    try {
+                        command.execute();
+                    } catch (IllegalStateException ex){
+                        log.warn("{}", "Row has not been selected");
+                        return;
+                    }
 
                     TaskTable table = (TaskTable) setNewTable(window, new TaskTable(window));
 
@@ -65,7 +74,7 @@ public class GetTasksBySprintIdCommand extends MainWindowCommand {
                     window.setProjectId(projectId);
                     window.setSprintId(command.getResult());
                 }),
-                t -> SwingUtilities.invokeLater(() -> new ErrorDialog(t.toString(), window))
+                t -> SwingUtilities.invokeLater(() -> new ErrorDialog(t.getMessage(), window))
         );
     }
 }

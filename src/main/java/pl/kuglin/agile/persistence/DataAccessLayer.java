@@ -61,7 +61,7 @@ public class DataAccessLayer {
 
     private void handleEstablishConnectionException(SQLException ex) throws SQLException {
         log.warn("{}", ESTABLISH_CONNECTION_ERROR, ex);
-        throw new SQLException(ex);
+        throw ex;
     }
 
     synchronized Connection establishConnection() throws SQLException {

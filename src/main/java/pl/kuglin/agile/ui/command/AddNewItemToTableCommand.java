@@ -19,7 +19,7 @@ public class AddNewItemToTableCommand extends MainWindowCommand {
         window.getActionRunnerFactory().createAndRun(
                 () -> strategy.accept(window),
                 () -> {},
-                t -> new ErrorDialog(t.toString(), window)
+                t -> new ErrorDialog(t.getMessage(), window)
         );
     }
 }

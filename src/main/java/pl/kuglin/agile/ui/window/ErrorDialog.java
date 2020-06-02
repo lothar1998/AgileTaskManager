@@ -1,5 +1,7 @@
 package pl.kuglin.agile.ui.window;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.kuglin.agile.ui.AbstractWindow;
 import pl.kuglin.agile.ui.button.OkButton;
 import pl.kuglin.agile.ui.panel.BoxPanel;
@@ -11,8 +13,12 @@ public class ErrorDialog extends JDialog {
 
     private static final String WINDOW_NAME = "ERROR";
 
+    private Logger log = LoggerFactory.getLogger(getClass());
+
     public ErrorDialog(String text, AbstractWindow window) {
         super(window, WINDOW_NAME);
+
+        log.error("{}", text);
 
         JPanel mainPanel = new BoxPanel(BoxPanel.Axis.Y_AXIS);
 

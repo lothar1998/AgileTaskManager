@@ -1,5 +1,7 @@
 package pl.kuglin.agile.ui.command;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.kuglin.agile.ui.AbstractTable;
 import pl.kuglin.agile.ui.AbstractWindow;
 import pl.kuglin.agile.ui.command.strategy.AddSprintStrategy;
@@ -11,6 +13,7 @@ import javax.swing.*;
 
 public class GetSprintsByProjectIdCommand extends MainWindowCommand implements Command {
 
+    private static final Logger log = LoggerFactory.getLogger(GetSprintsByProjectIdCommand.class);
     private final AbstractWindow window;
     private Integer projectId;
 
@@ -31,7 +34,12 @@ public class GetSprintsByProjectIdCommand extends MainWindowCommand implements C
                 list -> SwingUtilities.invokeLater(() -> {
                     if (projectId == null) {
                         GetSelectedRowIdentifierCommand command = new GetSelectedRowIdentifierCommand(window);
-                        command.execute();
+                        try {
+                            command.execute();
+                        } catch (IllegalStateException ex){
+                            log.warn("{}", "Row has not been selected");
+                            return;
+                        }
                         projectId = command.getResult();
                     }
 
@@ -52,7 +60,7 @@ public class GetSprintsByProjectIdCommand extends MainWindowCommand implements C
                     window.setProjectId(projectId);
                     window.setSprintId(null);
                 }),
-                t -> SwingUtilities.invokeLater(() -> new ErrorDialog(t.toString(), window))
+                t -> SwingUtilities.invokeLater(() -> new ErrorDialog(t.getMessage(), window))
         );
     }
 }

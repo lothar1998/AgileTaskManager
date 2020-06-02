@@ -1,5 +1,7 @@
 package pl.kuglin.agile.ui.command.strategy;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.kuglin.agile.persistence.CrudRepository;
 import pl.kuglin.agile.persistence.entities.TaskEntity;
 import pl.kuglin.agile.ui.AbstractTable;
@@ -9,9 +11,17 @@ import pl.kuglin.agile.ui.window.DecisionDialog;
 import javax.swing.table.DefaultTableModel;
 
 public class DeleteTaskStrategy extends AbstractDeleteStrategy {
+
+    private static final Logger log = LoggerFactory.getLogger(DeleteTaskStrategy.class);
+
     @Override
     public void accept(AbstractWindow window) {
         int row = window.getTable().getSelectedRow();
+
+        if(row < 0){
+            log.warn("{}", "Row has not been selected");
+            return;
+        }
 
         if (isUpdated(window, row))
             return;

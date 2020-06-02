@@ -6,8 +6,10 @@ import pl.kuglin.agile.ui.AbstractWindow;
 import pl.kuglin.agile.ui.window.AddItemDialog;
 
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,17 @@ public class AddTaskStrategy extends AbstractAddStrategy{
     private static final String ESTIMATION_KEY = "Estimation: ";
     private static final String PROGRESS_KEY = "Progress: ";
 
+    private static final NumberFormatter numberFormatter;
+
+    static {
+        NumberFormat integerFormat = NumberFormat.getIntegerInstance();
+
+        numberFormatter = new NumberFormatter(integerFormat);
+        numberFormatter.setValueClass(Integer.class);
+        numberFormatter.setAllowsInvalid(false);
+        numberFormatter.setOverwriteMode(true);
+    }
+
     @Override
     public void accept(AbstractWindow window) throws SQLException {
 
@@ -24,7 +37,7 @@ public class AddTaskStrategy extends AbstractAddStrategy{
 
         Map<String, Component> inputTextFields = new LinkedHashMap<>();
         inputTextFields.put(DESCRIPTION_KEY, new JTextField());
-        inputTextFields.put(ESTIMATION_KEY, new JTextField());
+        inputTextFields.put(ESTIMATION_KEY, new JFormattedTextField(numberFormatter));
 
         JComboBox<String> comboBox = new JComboBox<>();
         progresses.forEach(p -> comboBox.addItem(p.getName()));
@@ -35,7 +48,7 @@ public class AddTaskStrategy extends AbstractAddStrategy{
 
             TaskEntity taskEntity = new TaskEntity();
             taskEntity.setDescription(((JTextField)tf.get(DESCRIPTION_KEY)).getText());
-            taskEntity.setEstimation(Integer.valueOf(((JTextField)tf.get(ESTIMATION_KEY)).getText()));
+            taskEntity.setEstimation(Integer.valueOf((Integer)(((JFormattedTextField)tf.get(ESTIMATION_KEY)).getValue())));
 
             String progressName = (String)((JComboBox<String>)tf.get(PROGRESS_KEY)).getSelectedItem();
 
